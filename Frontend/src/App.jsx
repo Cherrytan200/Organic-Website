@@ -6,19 +6,20 @@ import Signin from './Pages/Signin.jsx'
 import Contact from './Pages/Contact.jsx'
 import Signup from './Pages/Signup.jsx';
 import Explore from './Pages/Explore.jsx';
+import Header from './Components/Header.jsx';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/about' element={<About/>}/>
-        <Route path='/sign-in' element={<Signin/>}/>
-        <Route path='/sign-up' element={<Signup/>}/>
-        <Route path='/contact' element={<Contact/>}/>
-        <Route path='/explore' element={<Explore/>}/>
-
-      </Routes>
+      <Header/>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/about' element={<About/>}/>
+          <Route path='/sign-in' element={<Signin/>}/>
+          <Route path='/sign-up' element={<Signup/>}/>
+          <Route path='/contact' element={<Contact/>}/>
+          <Route path='/explore' element={<Explore/>}/>
+        </Routes>
     </BrowserRouter>
   )
 }
