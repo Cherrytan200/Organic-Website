@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link,useLocation } from "react-router-dom";
 import { getNav } from "../navigation";
 import { BiLogOutCircle } from "react-icons/bi";
+import PropTypes from 'prop-types';
 
-
-export default function Sidebar() {
+export default function Sidebar({showSidebar,setShowSidebar}) {
   const pathName=useLocation();
   const [allNav,setAllNav]=useState([]);
   useEffect(()=>{
@@ -15,10 +15,10 @@ export default function Sidebar() {
   console.log(allNav);
   return (
     <div>
-      <div>
+      <div onClick={()=>setShowSidebar(false)} className={`fixed duration-200 ${!showSidebar ? 'invisible':'visible'} w-screen h-screen bg-[#93bbde80] top-0 left-0 z-10`}>
 
       </div>
-      <div className={`w-[260px] fixed bg-[#e6e7fb] z-50 top-0 h-screen shadow-[0_0_15px_0_rgb(34_41_47_/_5%)] transition-all`}>
+      <div className={`w-[260px] fixed bg-[#e6e7fb] z-50 top-0 h-screen shadow-[0_0_15px_0_rgb(34_41_47_/_5%)] transition-all ${showSidebar ? 'left-0':'-left-[260px] lg:left-0'}`}>
         <div className='h-[70px] flex justify-center items-center'>
           <Link to='/' className="w-[180px] h-[50px]">
             <img className="w-full h-full" src="../../public/Images/Logo2.jpg" alt="Logo"/>
@@ -48,3 +48,8 @@ export default function Sidebar() {
     </div>
   )
 }
+
+Sidebar.propTypes = {
+  showSidebar: PropTypes.bool.isRequired,
+  setShowSidebar: PropTypes.func.isRequired,
+};
