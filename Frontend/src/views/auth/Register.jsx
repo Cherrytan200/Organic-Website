@@ -2,7 +2,23 @@
 import { Link } from 'react-router-dom'
 import {FaGoogle} from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
+import { useState } from 'react'
 export default function Register() {
+    const [state,setState]=useState({
+        name:"",
+        email:"",
+        password:""
+    })
+    const inputHandle=(e)=>{
+        setState({
+            ...state,
+            [e.target.name]:e.target.value
+        })
+    }
+    const submit=(e)=>{
+        e.preventDefault()
+        console.log(state);
+    }
   return (
     <div className='min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center'>
         <div className='w-[350px] text-[#ffffff] p-2'>
@@ -11,26 +27,27 @@ export default function Register() {
                     Welcome to Ecommerce
                 </h2>
                 <p className='text-sm mb-3 font-medium'>Please Register your account</p>
-                <form className='placeholder-white-700' action=''>
+                <form onSubmit={submit}>
                     <div className='flex flex-col w-full gap-1 mb-3'>
                         <label htmlFor='name'>Name</label>
-                        <input className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md placeholder-white-700' type='text' name='name' placeholder='Name' id='name' required/>
+
+                        <input onChange={inputHandle} value={state.name} className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md placeholder-white-700' type='text' name='name' placeholder='Name' id='name' required/>
                     </div>
                     <div className='flex flex-col w-full gap-1 mb-3'>
                         <label htmlFor='email'>Email</label>
-                        <input className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md placeholder-white-700' type='text' name='email' placeholder='email' id='email' required/>
+                        <input onChange={inputHandle} value={state.email} className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md placeholder-white-700' type='email' name='email' placeholder='email' id='email' required/>
                     </div>
                     <div className='flex flex-col w-full gap-1 mb-3'>
                         <label htmlFor='password'>Password</label>
-                        <input className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md placeholder-white-700' type='text' name='password' placeholder='Password' id='password' required/>
+                        <input onChange={inputHandle} value={state.password} className='px-3 py-2 outline-none border border-slate-700 bg-transparent rounded-md placeholder-white-700' type='password' name='password' placeholder='Password' id='password' required/>
                     </div>
 
                     <div className='flex items-center w-full gap-3 mb-3'>
-                        <input type='checkbox' name='checkbox' id='checkbox' className='text-blue-600 overflow-hidden bg-gray-200 rounded border-gray-300 focus:ring-blue-500' />
+                        <input type='checkbox' name='checkbox' id='checkbox' className='text-blue-600 overflow-hidden bg-gray-200 rounded border-gray-300 focus:ring-blue-500' required/>
                         <label htmlFor='checkbox'>I agree to privacy policy & terms</label>
 
                     </div>
-                    <button className='bg-slate-800 w-full hover:shadow-blue-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>Sign Up</button>
+                    <button  className='bg-slate-800 w-full hover:shadow-blue-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>Sign Up</button>
                     <div className='flex items-center mb-3 gap-3 justify-center'>
                         <p>Already Have an account ? <Link className='font-bold' to='/login'>Signin</Link></p>
                     </div>
