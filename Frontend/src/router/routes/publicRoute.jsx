@@ -1,6 +1,6 @@
-import Login from './../../views/auth/Login';
-import Register from "../../views/auth/Register";
-import AdminLogin from '../../views/auth/AdminLogin';
+import Login from '../../views/auth/Login.jsx';
+import Register from "../../views/auth/Register.jsx";
+import AdminLogin from '../../views/auth/AdminLogin.jsx';
 const publicRoutes=[
   {
     path:'/login',
