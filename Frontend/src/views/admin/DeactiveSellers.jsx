@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { BsArrowDownSquare } from "react-icons/bs";
+import { useState } from 'react'
+
 import { Link } from "react-router-dom";
-import { FaEdit, FaEye, FaImage, FaTrash } from "react-icons/fa";
+import {FaEye} from "react-icons/fa";
 import Pagination from './../Pagination.jsx';
 
 
@@ -41,7 +41,7 @@ export default function DeactiveSellers() {
                         <tbody>
                             {
                             [1,2,3,4,5].map((d,i)=> 
-                            <tr key={i}>
+                            <tr key={i} className='border-b border-slate-700'>
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     {d}
                                 </td>
@@ -61,12 +61,12 @@ export default function DeactiveSellers() {
 
                                 {/* payment Status */}
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    Pending
+                                    <span>Pending</span>
                                 </td>
 
                                 {/* Status */}
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    Deactive
+                                    <span>Deactive</span>
                                 </td>
 
                             
@@ -74,7 +74,6 @@ export default function DeactiveSellers() {
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     <div className="flex justify-start items-center gap-4">
                                         <Link className="p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50"><FaEye/></Link>
-                                        
                                     </div>
                                 </td>
 

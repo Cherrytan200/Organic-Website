@@ -23,7 +23,7 @@ export default function PaymentRequest() {
         };
 
         return (
-            <div style={style} className='flex text-sm text-white font-medium'>
+            <div style={style} className='flex text-sm text-white font-medium border-b border-slate-700'>
                 <div className='w-[25%] p-2 whitespace-nowrap'>
                     {index+1}
                 </div>

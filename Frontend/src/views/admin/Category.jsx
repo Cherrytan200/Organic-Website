@@ -45,7 +45,7 @@ const [perPage,setPerPage]=useState(5);
                         <tbody>
                             {
                             [1,2,3,4,5].map((d,i)=> 
-                            <tr key={i}>
+                            <tr key={i} className='border-b border-slate-700'>
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     {d}
                                 </td>
