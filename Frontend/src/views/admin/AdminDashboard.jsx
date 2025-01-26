@@ -206,6 +206,8 @@ export default function AdminDashboard() {
                   View All
                 </Link>
           </div>
+
+          
           <div className="relative overflow-x-auto">
             <table className="w-full text-sm text-left text-[#d0d2d6] uppercase border-b border-slate-700">
               <thead className="etxt-sm text-[#d0d2d6] uppercase border-b border-slate-700">
