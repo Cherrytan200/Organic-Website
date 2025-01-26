@@ -2,6 +2,7 @@
 import AdminDashboard from "../../views/admin/AdminDashboard.jsx";
 import Category from "../../views/admin/Category.jsx";
 import Orders from "../../views/admin/Orders.jsx";
+import Sellers from "../../views/admin/Sellers.jsx";
 export const adminRoutes=[
     {
         path:'admin/dashboard',
@@ -16,6 +17,11 @@ export const adminRoutes=[
     {
         path:'admin/dashboard/category',
         element:<Category/>,
+        role:'admin'
+    },
+    {
+        path:'admin/dashboard/sellers',
+        element:<Sellers/>,
         role:'admin'
     }
 ]
