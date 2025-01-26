@@ -4,7 +4,7 @@ import Category from "../../views/admin/Category.jsx";
 import Orders from "../../views/admin/Orders.jsx";
 import Sellers from "../../views/admin/Sellers.jsx";
 import PaymentRequest from "../../views/admin/PaymentRequest.jsx";
-
+import DeactiveSellers from "../../views/admin/DeactiveSellers.jsx";
 export const adminRoutes=[
     {
         path:'admin/dashboard',
@@ -29,6 +29,11 @@ export const adminRoutes=[
     {
         path:'admin/dashboard/payment-request',
         element:<PaymentRequest/>,
+        role:'admin'
+    },
+    {
+        path:'admin/dashboard/deactive-sellers',
+        element:<DeactiveSellers/>,
         role:'admin'
     }
     

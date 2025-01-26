@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaEye, FaImage, FaTrash } from "react-icons/fa";
 import Pagination from './../Pagination.jsx';
 
-export default function Sellers() {
+
+export default function DeactiveSellers() {
     const [currentPage,setCurrentPage]=useState(1);
     const [searchValue,setSearchValue]=useState('');
     const [show,setShow]=useState(false);
     const [perPage,setPerPage]=useState(5);
   return (
     <div className='px-2 lg:px-7 pt-5'>
-        <h1 className='text-[20px] font-bold m-3'>Sellers</h1>
+            <h1 className='text-[20px] font-bold m-3'>Deactive Seller</h1>
             <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
                 <div className="flex justify-between items-center">
                     <select onChange={(e)=>setPerPage(parseInt(e.target.value))} className="px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#d0d2d6]">
@@ -31,12 +32,9 @@ export default function Sellers() {
                                 <th className="py-3 px-4" scope="col">No</th>
                                 <th className="py-3 px-4" scope="col">Image</th>
                                 <th className="py-3 px-4" scope="col">Name</th>
-                                <th className="py-3 px-4" scope="col">Shop Name</th>
-                                <th className="py-3 px-4" scope="col">Payment status</th>
                                 <th className="py-3 px-4" scope="col">Email</th>
-                                <th className="py-3 px-4" scope="col">Division</th>
-                                <th className="py-3 px-4" scope="col">District</th>
-                                <th className="py-3 px-4" scope="col">State</th>
+                                <th className="py-3 px-4" scope="col">Payment status</th>
+                                <th className="py-3 px-4" scope="col">Status</th>
                                 <th className="py-3 px-4" scope="col">Action</th>
                             </tr>
                         </thead>
@@ -56,9 +54,9 @@ export default function Sellers() {
                                     Intiyaz
                                 </td>
 
-                                {/* Shopname */}
+                                {/* Email */}
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    Organic 
+                                    Intiyaz@gmail.com
                                 </td>
 
                                 {/* payment Status */}
@@ -66,26 +64,12 @@ export default function Sellers() {
                                     Pending
                                 </td>
 
-                                {/* Email */}
+                                {/* Status */}
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    intiyaz2003@gmail.com
+                                    Deactive
                                 </td>
 
-                                {/* Division */}
-                                <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    Kurnool
-                                </td>
-
-                                {/* District */}
-                                <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    Kurnool
-                                </td>
-
-                                {/* State */}
-                                <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    Andhra Pradesh
-                                </td>
-                                
+                            
                                 {/* Action */}
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     <div className="flex justify-start items-center gap-4">
@@ -93,6 +77,7 @@ export default function Sellers() {
                                         
                                     </div>
                                 </td>
+
                             </tr>
                             )
                             }
@@ -110,6 +95,6 @@ export default function Sellers() {
                     />
                 </div>
             </div>
-    </div>
+        </div>
   )
 }
