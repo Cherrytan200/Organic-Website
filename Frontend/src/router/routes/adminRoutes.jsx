@@ -7,6 +7,7 @@ import PaymentRequest from "../../views/admin/PaymentRequest.jsx";
 import DeactiveSellers from "../../views/admin/DeactiveSellers.jsx";
 import SellerRequest from "../../views/admin/SellerRequest.jsx";
 import SellerDetails from "../../views/admin/SellerDetails.jsx";
+import ChatSeller from "../../views/admin/ChatSeller.jsx";
 
 export const adminRoutes=[
     {
@@ -48,6 +49,11 @@ export const adminRoutes=[
     {
         path:'admin/dashboard/seller/details/:sellerId',
         element:<SellerDetails/>,
+        role:'admin'
+    },
+    {
+        path:'admin/dashboard/chat-seller',
+        element:<ChatSeller/>,
         role:'admin'
     }
     

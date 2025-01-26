@@ -138,7 +138,7 @@ export default function AdminDashboard() {
 
                   <li className="mb-3 ml-6">
                     <div className="flex absolute -left-5 shadow-lg justify-center items-center w-10 h-10 p-[6px] bg-[#4c7fe2] rounded-full z-10">
-                        <img src="../../../public/Images/admin.jpeg" alt="admin" className="w-full rounded-full h-full shadow-lg"/>
+                        <img src="../../../public/Images/Profiles/admin.jpeg" alt="admin" className="w-full rounded-full h-full shadow-lg"/>
                     </div>
                     <div className="p-3 bg-slate-800 rounded-lg border border-slate-600 shadow-sm">
                       <div className="flex justify-between items-center mb-2 ">
@@ -156,7 +156,7 @@ export default function AdminDashboard() {
 
                   <li className="mb-3 ml-6">
                     <div className="flex absolute -left-5 shadow-lg justify-center items-center w-10 h-10 p-[6px] bg-[#4c7fe2] rounded-full z-10">
-                        <img src="../../../public/Images/admin.jpeg" alt="admin" className="w-full rounded-full h-full shadow-lg"/>
+                        <img src="../../../public/Images/Profiles/admin.jpeg" alt="admin" className="w-full rounded-full h-full shadow-lg"/>
                     </div>
                     <div className="p-3 bg-slate-800 rounded-lg border border-slate-600 shadow-sm">
                       <div className="flex justify-between items-center mb-2 ">
@@ -174,7 +174,7 @@ export default function AdminDashboard() {
 
                   <li className="mb-3 ml-6">
                     <div className="flex absolute -left-5 shadow-lg justify-center items-center w-10 h-10 p-[6px] bg-[#4c7fe2] rounded-full z-10">
-                        <img src="../../../public/Images/admin.jpeg" alt="admin" className="w-full rounded-full h-full shadow-lg"/>
+                        <img src="../../../public/Images/Profiles/admin.jpeg" alt="admin" className="w-full rounded-full h-full shadow-lg"/>
                     </div>
                     <div className="p-3 bg-slate-800 rounded-lg border border-slate-600 shadow-sm">
                       <div className="flex justify-between items-center mb-2 ">
