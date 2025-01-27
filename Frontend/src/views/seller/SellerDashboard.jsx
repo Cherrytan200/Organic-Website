@@ -1,6 +1,5 @@
 import { MdCurrencyRupee } from "react-icons/md";
 import { MdProductionQuantityLimits } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
 import { FaCartShopping } from "react-icons/fa6";
 import Chart from 'react-apexcharts';
 import { Link } from "react-router-dom";
@@ -117,6 +116,8 @@ export default function SellerDashboard() {
         </div>
 
       </div>
+
+      
 
       <div className="w-full flex flex-wrap mt-7">
         <div className="w-full lg:w-7/12 lg:pr-3">

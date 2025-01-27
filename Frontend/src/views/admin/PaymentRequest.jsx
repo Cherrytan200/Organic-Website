@@ -14,7 +14,7 @@ outerElementType.displayName = 'OuterElementType';
 
 export default function PaymentRequest() {
 
-    const array=[1,2,3,4,5,6,7,8,9]
+    // const array=[1,2,3,4,5,6,7,8,9]
 
     const Row=({index,style})=>{
         Row.propTypes = {
@@ -47,6 +47,7 @@ export default function PaymentRequest() {
         <div className="w-full p-4 bg-[#6a5fdf] rounded-md">
             <h2 className='text-xl font-medium pb-5 text-[#d0d2d6]'>Withdraw Request</h2>
             <div className='w-full'>
+
                 <div className='w-full overflow-x-auto'>
                     <div className='flex bg-[#a7a3de] uppercase text-xs font-bold min-w-[340px] rounded-md'>
                         <div className='w-[25%] p-2'>
@@ -65,6 +66,8 @@ export default function PaymentRequest() {
                             Action
                         </div>
                     </div>
+
+
                     {
                         <List
                             style={{minWidth:'340px'}}
@@ -78,6 +81,8 @@ export default function PaymentRequest() {
                         </List>
                     }
                 </div>
+
+
             </div>
         </div>
     </div>
