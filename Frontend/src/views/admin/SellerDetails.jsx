@@ -7,7 +7,7 @@ export default function SellerDetails() {
             <div className='w-full flex flex-wrap text-[#d0d2d6]'>
                 <div className='w-3/12 flex justify-center items-center py-3 '>
                     <div>
-                        <img src="../../../../public/Images/Profiles/seller.png" className="w-full h-[230px] "/>
+                        <img src="/Images/Profiles/seller.png" className="w-full h-[230px] "/>
                     </div>
                 </div>
 

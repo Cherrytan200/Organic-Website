@@ -129,7 +129,7 @@ export default function OrderDetails() {
                                     </div> 
                                     <div>
                                         <div className='flex gap-3 text-md mt-2'>
-                                            <img className='w-[65px] h-[85px]' src='../../../../public/Images/Category/1.jpeg' alt='Image'/>
+                                            <img className='w-[65px] h-[85px]' src='/Images/Category/1.jpeg' alt='Image'/>
                                             <div>
                                                 <h2> Name : Apple</h2>
                                                 <p>
@@ -155,7 +155,7 @@ export default function OrderDetails() {
                                     </div> 
                                     <div>
                                         <div className='flex gap-3 text-md mt-2'>
-                                            <img className='w-[65px] h-[85px]' src='../../../../public/Images/Category/1.jpeg' alt='Image'/>
+                                            <img className='w-[65px] h-[85px]' src='/Images/Category/1.jpeg' alt='Image'/>
                                             <div>
                                                 <h2> Name : Apple</h2>
                                                 <p>

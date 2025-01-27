@@ -48,7 +48,7 @@ export default function Sellers() {
                                     {d}
                                 </td>
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    <img src={`../../../public/Images/Category/${d}.jpeg`} className="w-[45px] h-[45px]"/>
+                                    <img src={`/Images/Category/${d}.jpeg`} className="w-[45px] h-[45px]"/>
                                 </td>
 
                                 {/* name */}

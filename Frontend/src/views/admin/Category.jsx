@@ -50,7 +50,7 @@ const [perPage,setPerPage]=useState(5);
                                     {d}
                                 </td>
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    <img src={`../../../public/Images/Category/${d}.jpeg`} className="w-[45px] h-[45px]"/>
+                                    <img src={`/Images/Category/${d}.jpeg`} className="w-[45px] h-[45px]"/>
                                 </td>
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     Vegetables
@@ -103,9 +103,11 @@ const [perPage,setPerPage]=useState(5);
                                     <span>Select Image</span>
                                 </label>
                                 <input type="file" className="hidden" name="image" id="image"/>
-                                <button className="bg-red-500 w-full hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2">
-                                    Add Category
-                                </button>
+                                <div>
+                                    <button className="bg-red-500 w-full hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2">
+                                        Add Category
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

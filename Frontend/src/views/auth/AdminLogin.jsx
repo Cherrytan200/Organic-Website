@@ -64,7 +64,8 @@ export default function AdminLogin() {
             <div className='bg-[#6f68d1] p-4 rounded-md'>
             <div className='h-[70px] flex justify-center items-center'>
                 <div className='w-[180px] h-[100px]'>
-                    <img className="w-full h-full" src='http://localhost:5173/Images/Logo3.jpg' alt='image'/>
+                    <img className="w-full h-full" src='/Images/Profiles/Logo3.jpg' alt='image'/>
+                    
                 </div>
             </div>
                 <form onSubmit={submit}>

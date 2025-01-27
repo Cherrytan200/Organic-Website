@@ -5,7 +5,8 @@ import { FaCartShopping } from "react-icons/fa6";
 import Chart from 'react-apexcharts';
 import { Link } from "react-router-dom";
 
-export default function AdminDashboard() {
+
+export default function SellerDashboard() {
   const state={
     series:[
       {
@@ -17,7 +18,7 @@ export default function AdminDashboard() {
         data:[45,23,56,7,8,90,34,67,89,9,34,56]
       },
       {
-        name:"Sellers",
+        name:"Sales",
         data:[34,5,67,89,12,43,24,65,24,6,23,46]
       },
     ],
@@ -97,18 +98,18 @@ export default function AdminDashboard() {
         <div className="flex justify-between items-center p-5 bg-[#e9feea] rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-[#5c5a5a]">
                 <h2 className="text-3xl font-bold">10</h2>
-                <span className="text-md font-medium">Sellers</span>
+                <span className="text-md font-medium">Orders</span>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-[#038000] flex justify-center items-center text-xl">
-            <FaUsers className="text-white shadow-lg" />
+            <FaCartShopping className="text-white shadow-lg" />
           </div>
         </div>
 
         {/* 4 */}
         <div className="flex justify-between items-center p-5 bg-[#ecebff] rounded-md gap-3">
           <div className="flex flex-col justify-start items-start text-[#5c5a5a]">
-                <h2 className="text-3xl font-bold">54</h2>
-                <span className="text-md font-medium">Orders</span>
+                <h2 className="text-3xl font-bold">2</h2>
+                <span className="text-md font-medium">Pending Orders</span>
           </div>
           <div className="w-[40px] h-[47px] rounded-full bg-[#0200f8] flex justify-center items-center text-xl">
             <FaCartShopping className="text-white shadow-lg" />
@@ -127,7 +128,7 @@ export default function AdminDashboard() {
         <div className="w-full lg:w-5/12 lg:pl-4 mt-6 lg:mt-0">
             <div className="w-full bg-[#6a5fdf] p-4 rounded-md text-[#d0d2d6]">
               <div className="flex justify-between items-center">
-                  <h2 className="font-semibold text-lg text-[#d0d2d6] pb-3">Recent Seller Message</h2>
+                  <h2 className="font-semibold text-lg text-[#d0d2d6] pb-3">Recent Customer Message</h2>
                   <Link className="font-semibold text-sm text-[#d0d2d6]">
                     view All
                   </Link>
@@ -143,7 +144,7 @@ export default function AdminDashboard() {
                     <div className="p-3 bg-slate-800 rounded-lg border border-slate-600 shadow-sm">
                       <div className="flex justify-between items-center mb-2 ">
                         <Link className="text-md font-normal">
-                          Admin
+                          Seller
                         </Link>
                         <time className="mb-1 text-sm font-normal sm:order-last sm:mb-0">2 days ago</time>
                       </div>
@@ -179,7 +180,7 @@ export default function AdminDashboard() {
                     <div className="p-3 bg-slate-800 rounded-lg border border-slate-600 shadow-sm">
                       <div className="flex justify-between items-center mb-2 ">
                         <Link className="text-md font-normal">
-                          Admin
+                            Customer
                         </Link>
                         <time className="mb-1 text-sm font-normal sm:order-last sm:mb-0">2 days ago</time>
                       </div>

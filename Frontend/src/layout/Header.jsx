@@ -19,7 +19,7 @@ export default function Header({showSidebar,setShowSidebar}) {
                 <h2 className='text-md font-bold'>Charan Thammisetti</h2>
                 <span className='text-[14px] w-full font-normal'>Admin</span>
               </div>
-              <img className='w-[45px] h-[45px] rounded-full overflow-hidden' src='../../public/Images/Profiles/admin.jpeg' alt=''/>
+              <img className='w-[45px] h-[45px] rounded-full overflow-hidden' src='/Images/Profiles/admin.jpeg' alt=''/>
             </div>
           </div>
 
