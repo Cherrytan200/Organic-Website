@@ -65,14 +65,29 @@ export default function Orders() {
                                 Pending
                             </div>
                             <div className="py-3 w-[18%] font-medium">
-                                <Link>
+                                <Link to='/admin/dashboard/order/details/3'>
                                     View
                                 </Link>
                             </div>
-                            <div className="py-3 w-[8%] font-medium">
+                            <div onClick={(e)=>setShow(!show)} className="py-3 w-[8%] font-medium">
                                 <BsArrowDownSquare/>
                             </div>
                         </div>
+
+                        <div className={show ? 'block border-b border-slate-700 bg-[#8288ed]':'hidden'}>
+                            <div className="flex justify-start items-start border-b border-slate-700">
+                                <div className="py-3 w-[25%] font-medium whitespace-nowrap pl-3">
+                                    #3434
+                                </div>
+                                <div className="py-3 w-[13%] font-medium">&#8377;5674</div>
+                                <div className="py-3 w-[18%] font-medium">Pending</div>
+                                <div className="py-3 w-[18%] font-medium">Pending</div>
+
+                            </div>
+
+                        </div>
+
+
                     </div>
 
 
