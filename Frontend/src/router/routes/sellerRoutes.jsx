@@ -5,6 +5,7 @@ import Discount from "../../views/seller/Discount.jsx";
 import Orders from "../../views/seller/Orders.jsx";
 import Payments from "../../views/seller/Payments.jsx";
 import Products from "../../views/seller/Products.jsx";
+import Profile from "../../views/seller/Profile.jsx";
 import SellerDashboard from "../../views/seller/SellerDashboard.jsx";
 import SellerToCustomer from "../../views/seller/SellerToCustomer.jsx";
 import SellerToAdmin from "./SellerToAdmin.jsx";
@@ -64,6 +65,12 @@ export const sellerRoutes=[
     {
         path:'/seller/dashboard/chat-customer',
         element:<SellerToCustomer/>,
+        role:'seller',
+        status:'active'
+    },
+    {
+        path:'/seller/dashboard/profile',
+        element:<Profile/>,
         role:'seller',
         status:'active'
     },
