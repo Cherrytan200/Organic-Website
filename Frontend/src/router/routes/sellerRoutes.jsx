@@ -1,7 +1,8 @@
-
 import Home from "../../views/Home.jsx";
 import AddProduct from "../../views/seller/AddProduct.jsx";
 import Discount from "../../views/seller/Discount.jsx";
+import EditProduct from "../../views/seller/EditProduct.jsx";
+import OrderDetails from "../../views/seller/OrderDetails.jsx";
 import Orders from "../../views/seller/Orders.jsx";
 import Payments from "../../views/seller/Payments.jsx";
 import Products from "../../views/seller/Products.jsx";
@@ -28,6 +29,12 @@ export const sellerRoutes=[
         status:'active'
     },
     {
+        path:'/seller/dashboard/edit-product/:productId',
+        element:<EditProduct/>,
+        role:'seller',
+        status:'active'
+    },
+    {
         path:'/seller/dashboard/products',
         element:<Products/>,
         role:'seller',
@@ -42,6 +49,12 @@ export const sellerRoutes=[
     {
         path:'/seller/dashboard/orders',
         element:<Orders/>,
+        role:'seller',
+        ability:['active','deactive'],
+    },
+    {
+        path:'/seller/dashboard/orders/details/:orderId',
+        element:<OrderDetails/>,
         role:'seller',
         ability:['active','deactive'],
     },
@@ -74,4 +87,5 @@ export const sellerRoutes=[
         role:'seller',
         status:'active'
     },
+    
 ]

@@ -2,9 +2,17 @@
 import { Link } from 'react-router-dom'
 import {FaGoogle} from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
-import { useState } from 'react'
-export default function Login() {
+import { useEffect, useState } from 'react'
+import { PropagateLoader } from 'react-spinners'
+import { overrideStyle } from '../../utils/utils.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { messageClear, seller_login } from '../../store/Reducers/authReducer.js'
+import toast from 'react-hot-toast'
 
+
+export default function Login() {
+    const dispatch=useDispatch();
+    const {loader,errorMessage,successMessage}=useSelector(state=>state.auth);
     const [state,setState]=useState({
             email:"",
             password:""
@@ -17,8 +25,32 @@ export default function Login() {
         }
         const submit=(e)=>{
             e.preventDefault()
-            console.log(state);
+            dispatch(seller_login(state))
         }
+
+        useEffect(()=>{
+            if(errorMessage){
+                toast.error(errorMessage,{
+                    position:'top-right',
+                    style:{
+                        backgroundColor:'#ff0000',
+                        color:'#fff'
+                    }
+                })
+                dispatch(messageClear())
+            }
+            if(successMessage){
+                toast.success(successMessage,{
+                    position:'top-right',
+                    style:{
+                        backgroundColor:'#00ff00',
+                        color:'#000'
+                    }
+                })
+                dispatch(messageClear())
+               
+            }
+        },[successMessage,errorMessage])
 
   return (
     <div className='min-w-screen min-h-screen bg-[#cdcae9] flex justify-center items-center'>
@@ -40,7 +72,11 @@ export default function Login() {
                     </div>
 
                     
-                    <button className='bg-slate-800 w-full hover:shadow-blue-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>Sign In</button>
+                    <button disabled={loader?true:false} className='bg-slate-800 w-full hover:shadow-blue-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
+                        {
+                            loader?<PropagateLoader cssOverride={overrideStyle} color='#fff'/>:'Sign In'
+                        }
+                    </button>
                     <div className='flex items-center mb-3 gap-3 justify-center'>
                         <p>Don&apos;t have an account ? <Link className='font-bold' to='/register'>Signup</Link></p>
                     </div>

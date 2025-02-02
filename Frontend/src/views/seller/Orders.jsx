@@ -2,7 +2,7 @@ import { useState } from "react";
 import Search from "../components/Search.jsx";
 import Pagination from "../Pagination.jsx";
 import { Link } from "react-router-dom";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
 export default function Orders() {
 
@@ -51,14 +51,14 @@ export default function Orders() {
                                 
                                 <td scope="row" className="py-1 px-8 font-medium whitespace-nowrap">
                                     <div className="flex justify-start items-center gap-4">
-                                        <Link className="p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50">
+                                        <Link to={`/seller/dashboard/orders/details/34`} className="p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50">
                                             <FaEye/>
                                         </Link>
                                     </div>
                                 </td>
                             </tr>
-                            )
-                            }
+                            )}
+
                         </tbody>
                         </table>
                     </div>

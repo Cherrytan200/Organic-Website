@@ -1,7 +1,11 @@
 import adminModel from "../Models/adminModel.js";
+import sellerModel from "../Models/sellerModel.js";
+import sellerCustomerModel from "../Models/chat/sellerCustomerModel.js";
 import { responseReturn } from "../utils/response.js";
 import bcrypt from 'bcryptjs'
 import { createToken } from "../utils/tokenCreate.js";
+
+
 export const admin_login=async(req,res)=>{
     const {email,password}=req.body
     try{
@@ -31,6 +35,73 @@ export const admin_login=async(req,res)=>{
     }catch(error){
         responseReturn(res,500,{error:error.message})
     }
+}
+
+
+export const seller_login=async(req,res)=>{
+    const {email,password}=req.body
+    try{
+        const seller=await sellerModel.findOne({email}).select(
+            '+password'
+        )
+        // console.log(seller);
+        if (seller) {
+            const match=await bcrypt.compare(password,seller.password)
+            
+            // console.log(match);
+            if (match) {
+                const token=await createToken({
+                    id:seller.id,
+                    role:seller.role
+                })
+                res.cookie('accesToken',token,{
+                    expires:new Date(Date.now()+7*24*60*60*1000)
+                })
+                responseReturn(res,200,{token,message:"Login Success"})
+            } else {
+                responseReturn(res,404,{error:"Password not match"})
+            }
+        } else {
+            responseReturn(res,404,{error:"Email not found"});
+        }
+
+    }catch(error){
+        responseReturn(res,500,{error:error.message})
+    }
+}
+
+
+export const seller_register=async(req,res)=>{
+    const {email,name,password}=req.body
+    try{
+        const getUser=await sellerModel.findOne({email})
+        if(getUser){
+            responseReturn(res,404,{error:'Email Already Exists'})
+        }else{
+            const seller=await sellerModel.create({
+                name,
+                email,
+                password:await bcrypt.hash(password,10),
+                method:'manual',
+                shopInfo:{}
+            })
+            await sellerCustomerModel.create({
+                myId:seller.id
+            })
+            const token=await createToken({
+                id:seller.id,role:seller.role
+            });
+            res.cookie('accessToken',token,
+                {
+                    expires:new Date(Date.now()+7*24*60*60*1000)
+                }
+            )
+            responseReturn(res,201,{token,message:'Register Success'})
+        }
+    }catch(error){
+        responseReturn(res,500,{error:'Internal Server Error'})
+    }
+
 }
 
 export const getUser=async(req,res)=>{

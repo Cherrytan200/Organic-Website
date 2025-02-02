@@ -4,7 +4,7 @@ export default function Profile() {
     const loader=true;
     const image=true;
     const status='active'
-    const userInfo=false;
+    const userInfo=true;
 
   return (
     <div className="px-2 lg:px-7 py-5">
