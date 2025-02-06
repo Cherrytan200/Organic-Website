@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {FaGoogle} from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 
 
 export default function Register() {
+    const navigate=useNavigate();
+
     const dispatch=useDispatch();
 
     const {loader,successMessage,errorMessage}=useSelector(state=>state.auth)
@@ -52,6 +54,7 @@ export default function Register() {
                 }
             })
             dispatch(messageClear())
+            navigate('/');
            
         }
     },[successMessage,errorMessage])

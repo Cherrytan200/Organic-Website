@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {FaGoogle} from 'react-icons/fa'
 import { FaFacebook } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
@@ -11,6 +11,7 @@ import toast from 'react-hot-toast'
 
 
 export default function Login() {
+    const navigate=useNavigate();
     const dispatch=useDispatch();
     const {loader,errorMessage,successMessage}=useSelector(state=>state.auth);
     const [state,setState]=useState({
@@ -48,6 +49,7 @@ export default function Login() {
                     }
                 })
                 dispatch(messageClear())
+                navigate('/');
                
             }
         },[successMessage,errorMessage])

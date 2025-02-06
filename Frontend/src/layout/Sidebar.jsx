@@ -3,16 +3,24 @@ import { Link,useLocation } from "react-router-dom";
 import { getNav } from "../navigation";
 import { BiLogOutCircle } from "react-icons/bi";
 import PropTypes from 'prop-types';
+import { useDispatch,useSelector } from "react-redux";
+
 
 export default function Sidebar({showSidebar,setShowSidebar}) {
+
+  const dispatch=useDispatch()
+  const {role}=useSelector(state=>state.auth)
+
   const pathName=useLocation();
   const [allNav,setAllNav]=useState([]);
   useEffect(()=>{
-    const navs=getNav('seller')
+    const navs=getNav(role)
     setAllNav(navs)
-  },[])
-  console.log(pathName);
-  console.log(allNav);
+  },[role])
+
+  
+  // console.log(pathName);
+  // console.log(allNav);
   return (
     <div>
       <div onClick={()=>setShowSidebar(false)} className={`fixed duration-200 ${!showSidebar ? 'invisible':'visible'} w-screen h-screen bg-[#93bbde80] top-0 left-0 z-10`}>

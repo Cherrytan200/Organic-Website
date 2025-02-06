@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 
 export const authMiddleware = async(req,res,next)=>{
     const {accessToken}=req.cookies
+    console.log("Access token hello",accessToken);
     if (!accessToken) {
         return res.status(409).json({error:"Please Login First"});
     } else {
@@ -16,3 +17,5 @@ export const authMiddleware = async(req,res,next)=>{
         }
     }
 }
+
+

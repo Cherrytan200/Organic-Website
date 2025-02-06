@@ -22,10 +22,11 @@ export const admin_login=async(req,res)=>{
                     id:admin.id,
                     role:admin.role
                 })
-                res.cookie('accesToken',token,{
-                    expires:new Date(Date.now()+7*24*60*60*1000)
+                res.cookie('accessToken',token,{
+                    expires:new Date(Date.now()+7*24*60*60*1000),
+                    
                 })
-                responseReturn(res,200,{token,message:"Login Success"})
+                responseReturn(res,200,{token,message:"Login Success",userInfo:admin})
             } else {
                 responseReturn(res,404,{error:"Password not match"})
             }
@@ -54,10 +55,13 @@ export const seller_login=async(req,res)=>{
                     id:seller.id,
                     role:seller.role
                 })
-                res.cookie('accesToken',token,{
-                    expires:new Date(Date.now()+7*24*60*60*1000)
-                })
-                responseReturn(res,200,{token,message:"Login Success"})
+                res.cookie('accessToken',token,
+                    {
+                        expires:new Date(Date.now()+7*24*60*60*1000),
+                        
+                    }
+                )
+                responseReturn(res,200,{token,message:"Login Success",userInfo:seller})
             } else {
                 responseReturn(res,404,{error:"Password not match"})
             }
@@ -93,7 +97,8 @@ export const seller_register=async(req,res)=>{
             });
             res.cookie('accessToken',token,
                 {
-                    expires:new Date(Date.now()+7*24*60*60*1000)
+                    expires:new Date(Date.now()+7*24*60*60*1000),
+                    
                 }
             )
             responseReturn(res,201,{token,message:'Register Success'})
@@ -104,6 +109,8 @@ export const seller_register=async(req,res)=>{
 
 }
 
+
+
 export const getUser=async(req,res)=>{
     const {id,role}=req;
     try{
@@ -111,10 +118,12 @@ export const getUser=async(req,res)=>{
             const user=await adminModel.findById(id)
             responseReturn(res,200,{userInfo:user})
         }else{
-            console.log('Seller Info')
+            const seller=await sellerModel.findById(id)
+            console.log(seller);
+            responseReturn(res,200,{userInfo:seller})
         }
     }
     catch(error){
-        console.log(error.message);
+        responseReturn(res,500,{error:'Internal Server Error'})
     }
 }

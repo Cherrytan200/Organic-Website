@@ -1,4 +1,5 @@
-import Home from "../../views/Home.jsx";
+import Deactive from "../../views/Deactive.jsx";
+import Pending from "../../views/Pending.jsx";
 import AddProduct from "../../views/seller/AddProduct.jsx";
 import Discount from "../../views/seller/Discount.jsx";
 import EditProduct from "../../views/seller/EditProduct.jsx";
@@ -11,11 +12,19 @@ import SellerDashboard from "../../views/seller/SellerDashboard.jsx";
 import SellerToCustomer from "../../views/seller/SellerToCustomer.jsx";
 import SellerToAdmin from "./SellerToAdmin.jsx";
 export const sellerRoutes=[
+    
     {
-        path:'/',
-        element:<Home/>,
-        ability:['admin','seller'],
-    },
+        path:'/seller/account-pending',
+        element:<Pending/>,
+        ability:'seller',
+        
+    }, 
+    {
+        path:'/seller/account-deactive',
+        element:<Deactive/>,
+        ability:'seller',
+        
+    }, 
     {
         path:'/seller/dashboard',
         element:<SellerDashboard/>,
@@ -50,24 +59,25 @@ export const sellerRoutes=[
         path:'/seller/dashboard/orders',
         element:<Orders/>,
         role:'seller',
-        ability:['active','deactive'],
+        visibility:['active','deactive'],
     },
     {
         path:'/seller/dashboard/orders/details/:orderId',
         element:<OrderDetails/>,
         role:'seller',
-        ability:['active','deactive'],
+        visibility:['active','deactive'],
     },
     {
         path:'/seller/dashboard/payments',
         element:<Payments/>,
         role:'seller',
-        ability:['active','deactive'],
+        visibility:['active','deactive'],
     },
     {
         path:'/seller/dashboard/chat-seller',
         element:<SellerToAdmin/>,
-        ability:['active','deactive','pending']
+        role:"seller",
+        visibility:['active','deactive','pending']
     },
     {
         path:'/seller/dashboard/chat-customer/:customerId',
