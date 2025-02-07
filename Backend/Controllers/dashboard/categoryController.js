@@ -45,8 +45,13 @@ export const add_category=async(req,res)=>{
 export const get_category=async(req,res)=>{
     console.log(req.query);
     const {page,searchValue,perPage}=req.query
-    const skipPage=parseInt(perPage)*(parseInt(page)-1)
+    
     try {
+        let skipPage=''
+        if(perPage && page){
+            skipPage=parseInt(perPage)*(parseInt(page)-1)
+        }
+
         if (searchValue && page && perPage) {
             const categories=await categoryModel.find({
                 $text:{$search:searchValue}
@@ -58,9 +63,7 @@ export const get_category=async(req,res)=>{
 
             
         } else if(searchValue==='' && page && perPage){
-            const categories=await categoryModel.find({
-                
-            }).skip(skipPage).limit(perPage).sort({createdAt:-1})
+            const categories=await categoryModel.find({}).skip(skipPage).limit(perPage).sort({createdAt:-1})
             const totalCategory=await categoryModel.find({}).
             countDocuments()
             responseReturn(res,200,{categories,totalCategory})

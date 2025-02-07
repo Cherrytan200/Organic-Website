@@ -4,9 +4,12 @@ import cors from 'cors';
 
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from './routes/dashboard/categoryRoutes.js'
+import productRoutes from './routes/dashboard/productRoutes.js'
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { dbConnect } from "./utils/db.js";
+
+
 const app=express();
 const port=process.env.PORT || 5000
 dbConnect();
@@ -21,6 +24,7 @@ app.use(cookieParser());
 
 app.use('/api',authRoutes);
 app.use('/api',categoryRoutes);
+app.use('/api',productRoutes);
 
 
 app.get("/",(req,res)=>res.send('My Backend'))

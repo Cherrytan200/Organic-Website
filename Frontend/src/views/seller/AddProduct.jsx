@@ -1,63 +1,38 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IoMdCloseCircle, IoMdImages } from 'react-icons/io';
 import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { get_category } from '../../store/Reducers/categoryReducer.js';
+import { add_product, messageClear } from '../../store/Reducers/productReducer.js';
+import { overrideStyle } from "../../utils/utils.js";
+import { PropagateLoader } from "react-spinners";
+import toast from 'react-hot-toast';
+
 export default function AddProduct() {
+  const dispatch=useDispatch();
+  const {categories}=useSelector(state=>state.category)
+  const {loader,successMessage,errorMessage}=useSelector(state=>state.product)
+
+  useEffect(()=>{
+    dispatch(get_category({
+      page:"",
+      searchValue:"",
+      perPage:""
+    }))
+  },[])
 
   const [state,setState]=useState({
     name:"",
     description:"",
     discount:"",
     price:"",
-    ndvi:"",
     stock:"",
 
   })
-  const categories=[
-      {
-        id:1,
-        name:'Vegetables'
-      },
-      {
-        id:2,
-        name:'Fruits'
-      },
-      {
-        id:3,
-        name:'Herbs'
-      },
-      {
-        id:4,
-        name:'Grains and Pulses'
-      },
-      {
-        id:5,
-        name:'Dairy Products'
-      },
-      {
-        id:6,
-        name:'Spices and Condiments'
-      },
-      {
-        id:7,
-        name:'Oils and Fats'
-      },
-      {
-        id:8,
-        name:'Beverages'
-      },
-      {
-        id:9,
-        name:'Seeds and Nuts'
-      },
-      {
-        id:10,
-        name:'Animal Products'
-      }
-  ]
-
+  
 
   const [cateShow, setCateShow] = useState(false);
-  const [allCategory, setAllCategory] = useState(categories)
+  const [allCategory, setAllCategory] = useState([])
   const [category,setCategory]=useState('');
   const [searchValue,setSearchValue]=useState('');
   const inputHandle=(e)=>{
@@ -76,6 +51,42 @@ export default function AddProduct() {
       setAllCategory(categories)
     }
   }
+
+
+  useEffect(()=>{
+    if(errorMessage){
+        toast.error(errorMessage,{
+            position:'top-right',
+            style:{
+                backgroundColor:'#ff0000',
+                color:'#fff'
+            }
+        })
+        dispatch(messageClear())
+    }
+    if(successMessage){
+        toast.success(successMessage,{
+            position:'top-right',
+            style:{
+                backgroundColor:'#00ff00',
+                color:'#000'
+            }
+        })
+        dispatch(messageClear())
+        setState({
+            name:"",
+            description:"",
+            discount:"",
+            price:"",
+            stock:""
+        })
+        setImageShow([])
+        setCategory([])
+        setImages([]);
+       
+    }
+},[successMessage,errorMessage])
+
   const [images,setImages]=useState([]);
   const [imageShow,setImageShow]=useState([]);
 
@@ -113,6 +124,28 @@ export default function AddProduct() {
     setImageShow(filterImageUrl);
   }
 
+  const add=(e)=>{
+    e.preventDefault();
+    const formData=new FormData()
+    formData.append('name',state.name)
+    formData.append('description',state.description)
+    formData.append('price',state.price)
+    formData.append('stock',state.stock)
+    formData.append('discount',state.discount)
+    formData.append('shopName','Organic Store')
+    formData.append('category',category)
+    for(let i=0;i<images.length;i++){
+      formData.append('images',images[i])
+    }
+    dispatch(add_product(formData));
+    // console.log(state);
+  }
+
+  useEffect(()=>{
+    setAllCategory(categories)
+  },[categories])
+
+
     return (
     <div className='px-2 lg:px-7 pt-5'>
       <div className='w-full p-4 bg-[#6a5fdf] rounded-md'>
@@ -126,7 +159,7 @@ export default function AddProduct() {
         </div>
 
         <div>
-          <form>
+          <form onSubmit={add}>
             <div className='flex flex-col mb-3 md:flex-row gap-4 w-full text-[#d0d2d6]'>
               {/* name */}
               <div className='flex flex-col w-full gap-1'>
@@ -134,11 +167,7 @@ export default function AddProduct() {
                 <input onChange={inputHandle} value={state.name} className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='name' id='name' placeholder='Product Name'/>
               </div>
 
-              {/* ndvi */}
-              <div className='flex flex-col w-full gap-1'>
-                <label htmlFor='ndvi'>NDVI Value</label>
-                <input onChange={inputHandle} value={state.ndvi} className='px-4 py-2 focus:border-indigo-500 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='ndvi' id='ndvi' placeholder='Enter NDVI Value'/>
-              </div>
+              
               
             </div>
 
@@ -220,10 +249,12 @@ export default function AddProduct() {
                   
             </div>
 
-            <div>
-                <button className="bg-red-500  hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2">
-                    Add Product
-                </button>
+            <div className='flex'>
+              <button disabled={loader?true:false} className='bg-red-500 w-[250px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
+                  {
+                      loader?<PropagateLoader cssOverride={overrideStyle} color='#fff'/>:'Add Product'
+                  }
+              </button>
             </div>
 
           </form>
