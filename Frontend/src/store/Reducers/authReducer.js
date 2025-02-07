@@ -8,12 +8,12 @@ export const admin_login=createAsyncThunk(
         // console.log(info);
         try{
             const {data}=await api.post('/admin-login',info,{withCredentials:true});
-            console.log("Admin login",data);
+            // console.log("Admin login",data);
             localStorage.setItem('accessToken',data.token);
             return fulfillWithValue(data);
         }
         catch(error){
-            console.log("admin Login error:",error.response.data);
+            // console.log("admin Login error:",error.response.data);
             return rejectWithValue(error.response.data);    
         }
     }
@@ -26,13 +26,13 @@ export const seller_login=createAsyncThunk(
         // console.log(info);
         try{
             const {data}=await api.post('/seller-login',info,{withCredentials:true});
-            console.log("Seller login",data);
+            // console.log("Seller login",data);
             localStorage.setItem('accessToken',data.token);
             return fulfillWithValue(data);
 
         }
         catch(error){
-            console.log("Seller Login Error:",error.response.data);
+            // console.log("Seller Login Error:",error.response.data);
             return rejectWithValue(error.response.data);    
         }
     }
@@ -61,7 +61,7 @@ export const get_user_info=createAsyncThunk(
 export const seller_register=createAsyncThunk(
     'auth/seller_register',
     async(info,{rejectWithValue,fulfillWithValue})=>{
-        console.log(info);
+        // console.log(info);
         try{
             const {data}=await api.post('/seller-register',info,{withCredentials:true});
             localStorage.setItem('accessToken',data.token);
@@ -156,7 +156,7 @@ export const authReducer=createSlice({
             state.role=returnRole(payload.token)
          })
          .addCase(get_user_info.fulfilled,(state,{payload})=>{
-            console.log("Get Userinfo Payload",payload);
+            // console.log("Get Userinfo Payload",payload);
             state.loader=false;
             state.userInfo=payload.userInfo;
          })

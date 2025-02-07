@@ -15,6 +15,6 @@ export default function Search({setPerPage,setSearchValue,searchValue}) {
 Search.propTypes = {
   setPerPage: PropTypes.func.isRequired,
   setSearchValue:PropTypes.func.isRequired,
-  searchValue:PropTypes.func.isRequired
+  searchValue:PropTypes.string.isRequired
 }
 

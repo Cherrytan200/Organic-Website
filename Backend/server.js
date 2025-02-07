@@ -3,6 +3,7 @@ import "dotenv/config";
 import cors from 'cors';
 
 import authRoutes from "./routes/authRoutes.js";
+import categoryRoutes from './routes/dashboard/categoryRoutes.js'
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { dbConnect } from "./utils/db.js";
@@ -19,6 +20,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api',authRoutes);
+app.use('/api',categoryRoutes);
+
+
 app.get("/",(req,res)=>res.send('My Backend'))
 app.listen(port,()=>
     console.log(`Server started on port: ${port}`)
