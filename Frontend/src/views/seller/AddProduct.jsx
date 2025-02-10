@@ -244,6 +244,9 @@ export default function AddProduct() {
                     <span>
                       Select Image
                     </span>
+                    <span>
+                      (more than 1)
+                    </span>
                   </label>
                   <input multiple  onChange={imageHandle} className='hidden' type='file' id='image'/>
                   

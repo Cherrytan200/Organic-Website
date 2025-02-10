@@ -58,6 +58,25 @@ export const get_user_info=createAsyncThunk(
 )
 
 
+export const profile_image_upload=createAsyncThunk(
+    'auth/profile_image_upload',
+    async(image,{rejectWithValue,fulfillWithValue})=>{
+        // console.log(info);
+        try{
+            const {data}=await api.post('/profile-image-upload',image,{withCredentials:true});
+            console.log(data);
+            // localStorage.setItem('accessToken',data.token);
+            return fulfillWithValue(data);
+
+        }
+        catch(error){
+            // console.log(error.response.data);
+            return rejectWithValue(error.response.data);    
+        }
+    }
+)
+
+
 export const seller_register=createAsyncThunk(
     'auth/seller_register',
     async(info,{rejectWithValue,fulfillWithValue})=>{
@@ -91,6 +110,9 @@ const returnRole=(token)=>{
     }
 }
 
+
+
+
 export const authReducer=createSlice({
     name:'auth',
     initialState:{
@@ -102,13 +124,13 @@ export const authReducer=createSlice({
         token:localStorage.getItem('accessToken')
     },
     reducers:{
-        messageClear:(state,_)=>{
+        messageClear:(state)=>{
             state.errorMessage='';
         }
     },
     extraReducers:(builder)=>{
         builder
-         .addCase(admin_login.pending,(state,{payload})=>{
+         .addCase(admin_login.pending,(state)=>{
             state.loader=true;
          })
          .addCase(admin_login.rejected,(state,{payload})=>{
@@ -125,7 +147,7 @@ export const authReducer=createSlice({
          })
 
 
-         .addCase(seller_login.pending,(state,{payload})=>{
+         .addCase(seller_login.pending,(state)=>{
             state.loader=true;
          })
          .addCase(seller_login.rejected,(state,{payload})=>{
@@ -142,7 +164,7 @@ export const authReducer=createSlice({
          })
 
 
-         .addCase(seller_register.pending,(state,{payload})=>{
+         .addCase(seller_register.pending,(state)=>{
             state.loader=true;
          })
          .addCase(seller_register.rejected,(state,{payload})=>{
@@ -159,6 +181,19 @@ export const authReducer=createSlice({
             // console.log("Get Userinfo Payload",payload);
             state.loader=false;
             state.userInfo=payload.userInfo;
+         })
+
+         .addCase(profile_image_upload.pending,(state,{payload})=>{
+            // console.log("Get Userinfo Payload",payload);
+            state.loader=true;
+            
+         })
+
+         .addCase(profile_image_upload.fulfilled,(state,{payload})=>{
+            // console.log("Get Userinfo Payload",payload);
+            state.loader=false;
+            state.userInfo=payload.userInfo;
+            state.successMessage=payload.message;
          })
     }
 });

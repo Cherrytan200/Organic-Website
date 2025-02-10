@@ -4,7 +4,8 @@ import sellerCustomerModel from "../Models/chat/sellerCustomerModel.js";
 import { responseReturn } from "../utils/response.js";
 import bcrypt from 'bcryptjs'
 import { createToken } from "../utils/tokenCreate.js";
-
+import formidable from "formidable";
+import { v2 as cloudinary } from 'cloudinary';
 
 export const admin_login=async(req,res)=>{
     const {email,password}=req.body
@@ -126,4 +127,34 @@ export const getUser=async(req,res)=>{
     catch(error){
         responseReturn(res,500,{error:'Internal Server Error'})
     }
+}
+
+
+export const profile_image_upload=async(req,res)=>{
+    const {id}=req
+    const form=formidable({multiples:true})
+    form.parse(req,async(err,_,files)=>{
+        cloudinary.config({
+            cloud_name:process.env.cloud_name,
+            api_key:process.env.api_key,
+            api_secret:process.env.api_secret,
+            secure:true
+        })
+        const {image}=files
+
+
+        try {
+            const result=await cloudinary.uploader.upload(image.filepath,{folder:'profile'})
+            if (result) {
+                await sellerModel.findByIdAndUpdate(id,{image:result.url})
+                const userInfo=await sellerModel.findById(id)
+                responseReturn(res,200,{message:'Profile Image Uplouded Successfully',userInfo})
+
+            } else {
+                responseReturn(res,404,{error:'Image Upload Failed'})
+            }
+        } catch (error) {
+            responseReturn(res,500,{error:error.message})
+        }
+    })
 }
