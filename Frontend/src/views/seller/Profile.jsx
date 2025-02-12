@@ -1,15 +1,23 @@
 import { FaEdit, FaImages } from "react-icons/fa";
-import {FadeLoader} from 'react-spinners'
+import {FadeLoader, PropagateLoader} from 'react-spinners'
 import { useDispatch, useSelector } from 'react-redux';
-import {messageClear, profile_image_upload} from '../../store/Reducers/authReducer.js'
-import { useEffect } from "react";
+import {messageClear, profile_image_upload,profile_info_add} from '../../store/Reducers/authReducer.js'
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { overrideStyle } from "../../utils/utils.js";
 export default function Profile() {
 
     const dispatch=useDispatch();
     const {userInfo,loader,successMessage}=useSelector(state=>state.auth)
     // const status='active';
 
+    const [state,setState]=useState({
+        address:"",
+        district:"",
+        state:"",
+        pincode:"",
+        shopName:""
+    })
     useEffect(()=>{
         if(successMessage){
             toast.success(successMessage,{
@@ -30,6 +38,20 @@ export default function Profile() {
             dispatch(profile_image_upload(formData))
         }
     }
+
+    const inputHandle=(e)=>{
+        setState({
+            ...state,
+            [e.target.name]:e.target.value
+        })
+    }
+
+
+    const add=(e)=>{
+        e.preventDefault();
+        dispatch(profile_info_add(state))
+    }
+
   return (
     <div className="px-2 lg:px-7 py-5">
         <div className="w-full flex flex-wrap">
@@ -89,7 +111,7 @@ export default function Profile() {
                                 <span>Payment Account : </span>
                                 <p>
                                     {
-                                        status ==='active'?<span className="bg-red-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded">{userInfo.payment}</span>
+                                        userInfo.payment ==='active'?<span className="bg-red-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded">{userInfo.payment}</span>
                                         : <span className="bg-blue-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded">Click Active</span>
                                     }
                                 </p>
@@ -99,54 +121,60 @@ export default function Profile() {
                     
                     <div className="px-0 md:px-5 py-2">
                         {
-                            !userInfo ?.shopInfo? <form>
+                            !userInfo ?.shopInfo? <form onSubmit={add}>
 
                                 <div className='flex flex-col w-full gap-1 mb-2'>
                                     <label htmlFor='Shop'>Shop Name</label>
-                                    <input  className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='shopName' id='Shop' placeholder='Enter Shop Name'/>
+                                    <input value={state.shopName} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='shopName' id='Shop' placeholder='Enter Shop Name'/>
                                 </div>
 
                                 <div className='flex flex-col w-full gap-1 mb-2'>
-                                    <label htmlFor='division'>Address</label>
-                                    <input  className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='division' id='division' placeholder='Enter your Adress'/>
+                                    <label htmlFor='address'>Address</label>
+                                    <input value={state.address} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='address' id='address' placeholder='Enter your Address'/>
                                 </div>
 
                                 <div className='flex flex-col w-full gap-1 mb-2'>
                                     <label htmlFor='district'>District Name</label>
-                                    <input  className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='district' id='district' placeholder='Enter your District'/>
+                                    <input value={state.district}  onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='district' id='district' placeholder='Enter your District'/>
                                 </div>
 
                                 <div className='flex flex-col w-full gap-1 mb-2'>
                                     <label htmlFor='state'>State</label>
-                                    <input  className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='state' id='state' placeholder='Enter Your State'/>
+                                    <input value={state.state} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='state' id='state' placeholder='Enter Your State'/>
                                 </div>
 
                                 <div className='flex flex-col w-full gap-1 mb-2'>
                                     <label htmlFor='pin'>Pincode</label>
-                                    <input  className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='number' name='pincode' id='pin' placeholder='Enter Your Pincode'/>
+                                    <input value={state.pincode} onChange={inputHandle} className='px-4 py-2 focus:border-indigo-200 outline-none bg-[#6a5fdf] border-slate-700 rounded-md text-[#ecedef]' type='text' name='pincode' id='pin' placeholder='Enter Your Pincode'/>
                                 </div>
 
-                                <button className="bg-red-500  hover:shadow-red-500/40 hover:shadow-md text-white rounded-md px-7 py-2 my-2">
-                                    Save Changes
+                                <button disabled={loader?true:false} className='bg-red-500 w-[200px] hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
+                                    {
+                                        loader?<PropagateLoader cssOverride={overrideStyle} color='#fff'/>:'Save Changes'
+                                    }
                                 </button>
 
                             </form> :   <div className="flex justify-between text-sm flex-col gap-2 p-4 bg-slate-800 rounded-md relative">
                                 <span className="p-[6px] bg-yellow-400 rounded hover:shadow-lg hover:shadow-yellow-500/50 absolute right-2 top-2 cursor-pointer"><FaEdit/></span>
                                 <div className="flex gap-2">
                                     <span>Shop Name : </span>
-                                    <span>Organic Store</span>
+                                    <span>{userInfo.shopInfo?.shopName}</span>
                                 </div>
                                 <div className="flex gap-2">
                                     <span>Address : </span>
-                                    <span>Venkayapalli</span>
+                                    <span>{userInfo.shopInfo?.address}</span>
                                 </div>
                                 <div className="flex gap-2">
                                     <span>District : </span>
-                                    <span>Kurnool</span>
+                                    <span>{userInfo.shopInfo?.district}</span>
                                 </div>
                                 <div className="flex gap-2">
                                     <span>State : </span>
-                                    <span>Andhra Pradesh</span>
+                                    <span>{userInfo.shopInfo?.state}</span>
+                                </div>
+                                <div className="flex gap-2">
+                                    <span>State : </span>
+                                    <span>{userInfo.shopInfo?.pincode}</span>
                                 </div>
                                 
                             </div>

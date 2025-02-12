@@ -94,6 +94,22 @@ export const seller_register=createAsyncThunk(
     }
 )
 
+export const profile_info_add=createAsyncThunk(
+    'auth/profile_info_add',
+    async(info,{rejectWithValue,fulfillWithValue})=>{
+        // console.log(info);
+        try{
+            const {data}=await api.post('/profile-info-add',info,{withCredentials:true});
+            // localStorage.setItem('accessToken',data.token);
+            console.log(data);
+            return fulfillWithValue(data);
+        }
+        catch(error){
+            // console.log(error.response.data);
+            return rejectWithValue(error.response.data);    
+        }
+    }
+)
 
 const returnRole=(token)=>{
     if (token) {
@@ -109,6 +125,8 @@ const returnRole=(token)=>{
         return '';
     }
 }
+
+
 
 
 
@@ -183,13 +201,27 @@ export const authReducer=createSlice({
             state.userInfo=payload.userInfo;
          })
 
-         .addCase(profile_image_upload.pending,(state,{payload})=>{
+         .addCase(profile_image_upload.pending,(state)=>{
             // console.log("Get Userinfo Payload",payload);
             state.loader=true;
             
          })
 
          .addCase(profile_image_upload.fulfilled,(state,{payload})=>{
+            // console.log("Get Userinfo Payload",payload);
+            state.loader=false;
+            state.userInfo=payload.userInfo;
+            state.successMessage=payload.message;
+         })
+
+
+         .addCase(profile_info_add.pending,(state)=>{
+            // console.log("Get Userinfo Payload",payload);
+            state.loader=true;
+            
+         })
+
+         .addCase(profile_info_add.fulfilled,(state,{payload})=>{
             // console.log("Get Userinfo Payload",payload);
             state.loader=false;
             state.userInfo=payload.userInfo;

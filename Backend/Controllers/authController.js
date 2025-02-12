@@ -158,3 +158,24 @@ export const profile_image_upload=async(req,res)=>{
         }
     })
 }
+
+
+export const profile_info_add=async(req,res)=>{
+    const {address,district,state,shopName,pincode}=req.body;
+    const {id}=req;
+    try{
+        await sellerModel.findByIdAndUpdate(id,{
+            shopInfo:{
+                shopName,
+                address,
+                district,
+                state,
+                pincode
+            }
+        })
+        const userInfo=await sellerModel.findById(id)
+        responseReturn(res,201,{message:'Profile Info Added Successfully',userInfo})
+    }catch(error){
+        responseReturn(res,500,{error:error.message})
+    }
+}
