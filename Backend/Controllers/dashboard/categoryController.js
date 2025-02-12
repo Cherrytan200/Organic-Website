@@ -43,7 +43,7 @@ export const add_category=async(req,res)=>{
 
 
 export const get_category=async(req,res)=>{
-    console.log(req.query);
+    
     const {page,searchValue,perPage}=req.query
     
     try {

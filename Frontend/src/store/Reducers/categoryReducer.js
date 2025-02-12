@@ -43,18 +43,17 @@ export const categoryReducer=createSlice({
         successMessage:'',
         errorMessage:'',
         loader:false,
-        userInfo:'',
         categories:[],
         totalCategory:0
     },
     reducers:{
-        messageClear:(state,_)=>{
+        messageClear:(state)=>{
             state.errorMessage='';
         }
     },
     extraReducers:(builder)=>{
         builder
-         .addCase(categoryAdd.pending,(state,{payload})=>{
+         .addCase(categoryAdd.pending,(state)=>{
             state.loader=true;
          })
          .addCase(categoryAdd.rejected,(state,{payload})=>{

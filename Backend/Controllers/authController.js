@@ -120,7 +120,7 @@ export const getUser=async(req,res)=>{
             responseReturn(res,200,{userInfo:user})
         }else{
             const seller=await sellerModel.findById(id)
-            console.log(seller);
+            
             responseReturn(res,200,{userInfo:seller})
         }
     }
