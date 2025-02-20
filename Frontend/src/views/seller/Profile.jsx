@@ -5,6 +5,9 @@ import {messageClear, profile_image_upload,profile_info_add} from '../../store/R
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { overrideStyle } from "../../utils/utils.js";
+import { create_stripe_connect_account } from '../../store/Reducers/sellerReducer.js';
+
+
 export default function Profile() {
 
     const dispatch=useDispatch();
@@ -112,7 +115,7 @@ export default function Profile() {
                                 <p>
                                     {
                                         userInfo.payment ==='active'?<span className="bg-red-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded">{userInfo.payment}</span>
-                                        : <span className="bg-blue-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded">Click Active</span>
+                                        : <span onClick={()=> dispatch(create_stripe_connect_account())} className="bg-blue-500 text-white text-xs cursor-pointer font-normal ml-2 px-2 py-0.5 rounded">Click Active</span>
                                     }
                                 </p>
                             </div>

@@ -10,20 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
     "@reduxjs/toolkit": "^2.5.1",
+    "@stripe/react-stripe-js": "^3.1.1",
+    "@stripe/stripe-js": "^5.6.0",
     "axios": "^1.7.9",
     "flowbite-react": "^0.10.2",
+    "jwt-decode": "^4.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.1",
     "react-icons": "^5.4.0",
     "react-multi-carousel": "^2.8.5",
+    "react-range": "^1.8.14",
     "react-rating": "^2.0.5",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
     "react-spinners": "^0.15.0",
     "socket.io-client": "^4.8.1",
-    "stripe": "^17.6.0"
+    "stripe": "^17.6.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

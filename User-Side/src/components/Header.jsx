@@ -1,26 +1,46 @@
 import {MdEmail} from 'react-icons/md'
 import {IoIosArrowDown, IoMdArrowDropdown, IoMdPhonePortrait} from 'react-icons/io'
 import { FaFacebook, FaGithub, FaHeart, FaInstagram, FaLinkedin, FaList, FaLock, FaPhoneAlt, FaTwitter, FaUser } from 'react-icons/fa';
-import {Link, useLocation} from 'react-router-dom'
-import { useState } from 'react';
+import {Link, useLocation,useNavigate} from 'react-router-dom'
+import { useState,useEffect } from 'react';
 import { FaCartShopping } from 'react-icons/fa6';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { get_card_products, get_wishlist_products } from '../store/reducers/cardReducer.js';
 
 export default function Header() {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {categories} = useSelector(state => state.home) 
+    const {userInfo} = useSelector(state => state.auth) 
+    const {card_product_count,wishlist_count} = useSelector(state => state.card)
+
     const {pathname}=useLocation();
     const [showSidebar, setShowSidebar] = useState(true);
     const [categoryShow, setCategoryShow] = useState(true);
-    const wishlist_count=3;
-    const user=true;
-    const categories=[
-        'Fruits',
-        'Vegetables',
-        'Seeds and Nuts',
-        'Oils',
-        'Animal Products'
-    ]
+
     const [searchValue,setSearchValue]=useState('');
     const [category,setCategory]=useState('');
+    
+    const search = () => {
+        navigate(`/products/search?category=${category}&&value=${searchValue}`)
+    }
+
+    const redirect_card_page = () => {
+        if (userInfo) {
+            navigate('/card')
+        } else {
+            navigate('/login')
+        }
+    } 
+
+    useEffect(() => {
+        if (userInfo) {
+            dispatch(get_card_products(userInfo.id))
+            dispatch(get_wishlist_products(userInfo.id))
+        }  
+    },[userInfo])
+
 
   return (
     <div className="w-full bg-white ">
@@ -66,9 +86,9 @@ export default function Header() {
                                 </ul>
                             </div>
                             {
-                                user?<Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/dashboard'>
+                                userInfo?<Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/dashboard'>
                                     <span><FaUser/></span>
-                                    <span>Charan Thammisetti</span>
+                                    <span>{userInfo.name}</span>
                                 </Link>:
                                 <Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/login'>
                                     <span><FaLock/></span>
@@ -107,7 +127,7 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`p-2 block ${pathname==='/shop' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/shops' className={`p-2 block ${pathname==='/shop' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Shop
                                     </Link>
                                 </li>
@@ -129,22 +149,28 @@ export default function Header() {
                             </ul>
                             <div className='flex md-lg:hidden justify-center items-center gap-5 '>
                                 <div className='flex justify-center gap-5'>
-                                    <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                                    <div onClick={()=>navigate(userInfo? '/dashboard/my-wishlist':'/login')} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                         <span className='text-xl text-green-500'><FaHeart/></span>
-                                        <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
-                                            {
-                                                wishlist_count
-                                            }
-                                        </div>
+                                        
+                                        {
+                                            wishlist_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
+                                            {wishlist_count}
+                                            </div>
+                                        }
+                                        
                                     </div>
 
-                                    <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                                    <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                         <span className='text-xl text-green-500'><FaCartShopping/></span>
-                                        <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
-                                            {
-                                                wishlist_count
-                                            }
-                                        </div>
+                                        
+                                        {
+                                            card_product_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-red-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px] '>
+                                                {
+                                                    card_product_count
+                                                }
+                                            </div> 
+                                        } 
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -175,9 +201,9 @@ export default function Header() {
                                 </ul>
                             </div>
                             {
-                                user?<Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/dashboard'>
+                                userInfo?<Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/dashboard'>
                                     <span><FaUser/></span>
-                                    <span>Charan Thammisetti</span>
+                                    <span>{userInfo.name}</span>
                                 </Link>:
                                 <Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/login'>
                                     <span><FaLock/></span>
@@ -194,7 +220,7 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`py-2 block ${pathname==='/shop' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/shops' className={`py-2 block ${pathname==='/shop' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Shop
                                     </Link>
                                 </li>
@@ -266,9 +292,8 @@ export default function Header() {
                                     categories.map((c,i)=>{
                                         return (
                                             <li key={i} className='flex justify-start items-center gap-2 px-[24px] py-[6px] '>
-                                                <Link className='text-sm block '>
-                                                    {c}
-                                                </Link>
+                                                <img src={c.image} className='w-[30px] h-[30px] rounded-full overflow-hidden' alt="" />
+                                                <Link to={`/products?category=${c.name}`} className='text-sm block'>{c.name}</Link>
                                             </li>
                                         )
                                     })
@@ -288,15 +313,15 @@ export default function Header() {
                                     <select onChange={(e)=>setCategory(e.target.value)} className='w-[150px] text-slate-600 font-semibold bg-transparent px-2 h-full outline-0 border-none' name="" id="">
                                         <option value="">Select Category</option>
                                         {
-                                            categories.map((c,i)=><option value={c} key={i}>
-                                            {c}
+                                            categories.map((c,i)=><option value={c.name} key={i}>
+                                            {c.name}
                                             </option>)
                                         }
                                     </select>
                                 </div>
 
                                 <input  className='w-full relative bg-transparent text-slate-500 outline-0 px-3 h-full' onChange={(e)=>setSearchValue(e.target.value)} type='text' name='' id='' placeholder='Search'/>
-                                <button className='bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white'>Search</button>
+                                <button onClick={search} className='bg-[#059473] right-0 absolute px-8 h-full font-semibold uppercase text-white'>Search</button>
                             </div>
                         </div>
 
@@ -323,3 +348,4 @@ export default function Header() {
     
   );
 }
+

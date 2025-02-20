@@ -1,14 +1,31 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Search from "../components/Search.jsx";
 import Pagination from "../Pagination.jsx";
 import { Link } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
+import {  FaEye } from 'react-icons/fa'; 
+import { useDispatch, useSelector } from 'react-redux';
+import { get_seller_orders } from '../../store/Reducers/OrderReducer.js';
 
 export default function Orders() {
+
+    const dispatch = useDispatch()
+
+    const {myOrders,totalOrder } = useSelector(state => state.order)
+    const {userInfo } = useSelector(state => state.auth)
 
     const [currentPage,setCurrentPage]=useState(1);
     const [searchValue,setSearchValue]=useState('');
     const [perPage,setPerPage]=useState(5);
+    useEffect(() => {
+        const obj = {
+            perPage: parseInt(perPage),
+            page: parseInt(currentPage),
+            searchValue,
+            sellerId: userInfo._id
+        }
+        dispatch(get_seller_orders(obj))
+    },[searchValue,currentPage,perPage])
+
 
   return (
     <div className='px-2 lg:px-7 pt-5'>
@@ -24,6 +41,7 @@ export default function Orders() {
                                 <th className="py-3 px-4" scope="col">Price</th>
                                 <th className="py-3 px-4" scope="col">Payment Status</th>
                                 <th className="py-3 px-4" scope="col">order status</th>
+                                <th className="py-3 px-4" scope="col">Date</th>
                                 <th className="py-3 px-4" scope="col">action</th>
                                 
 
@@ -31,27 +49,30 @@ export default function Orders() {
                         </thead>
                         <tbody>
                             {
-                            [1,2,3,4,5].map((d,i)=> 
+                            myOrders.map((d,i)=> 
                             <tr key={i} className='border-b border-slate-700'>
                                 
 
                                 <td scope="row" className="py-1 px-5 font-medium whitespace-nowrap">
-                                    #5455
+                                    #{d._id}
                                 </td>
 
                                 <td scope="row" className="py-1 px-5 font-medium whitespace-nowrap">
-                                    &#8377;540
+                                    &#8377;{d.price}
                                 </td>
                                 <td scope="row" className="py-1 px-8 font-medium whitespace-nowrap">
-                                    Pending
+                                    {d.payment_status}
                                 </td>
                                 <td scope="row" className="py-1 px-8 font-medium whitespace-nowrap">
-                                    Pending
+                                    {d.delivery_status}
+                                </td>
+                                <td scope="row" className="py-1 px-8 font-medium whitespace-nowrap">
+                                    {d.date}
                                 </td>
                                 
                                 <td scope="row" className="py-1 px-8 font-medium whitespace-nowrap">
                                     <div className="flex justify-start items-center gap-4">
-                                        <Link to={`/seller/dashboard/orders/details/34`} className="p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50">
+                                        <Link to={`/seller/dashboard/order/details/${d._id}`} className="p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50">
                                             <FaEye/>
                                         </Link>
                                     </div>
@@ -63,15 +84,17 @@ export default function Orders() {
                         </table>
                     </div>
                     
-                    <div className="w-full flex justify-end items-center mt-4 bottom-4 right-4">
-                        <Pagination
-                            pageNumber={currentPage}
-                            setPageNumber={setCurrentPage}
-                            totalItem={50}
-                            perPage={perPage}
-                            showItem={3}
+                    {
+                        totalOrder <= perPage ? "" : <div className='w-full flex justify-end mt-4 bottom-4 right-4'>
+                        <Pagination 
+                            pageNumber = {currentPage}
+                            setPageNumber = {setCurrentPage}
+                            totalItem = {totalOrder}
+                            perPage = {perPage}
+                            showItem = {3}
                         />
-                    </div>
+                        </div>
+                    }
 
         </div>
     </div>

@@ -24,7 +24,7 @@ export default function Discount() {
                                 <th className="py-3 px-4" scope="col">Image</th>
                                 <th className="py-3 px-4" scope="col">Name</th>
                                 <th className="py-3 px-4" scope="col">Category</th>
-                                <th className="py-3 px-4" scope="col">NDVI Value</th>
+                                
                                 <th className="py-3 px-4" scope="col">Price</th>
                                 <th className="py-3 px-4" scope="col">Discount</th>
                                 <th className="py-3 px-4" scope="col">Stock</th>
@@ -50,9 +50,7 @@ export default function Discount() {
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     Vegetables
                                 </td>
-                                <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
-                                    0.7
-                                </td>
+                                
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     &#8377;40
                                 </td>

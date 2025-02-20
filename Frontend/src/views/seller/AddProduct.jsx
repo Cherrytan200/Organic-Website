@@ -35,6 +35,7 @@ export default function AddProduct() {
   const [allCategory, setAllCategory] = useState([])
   const [category,setCategory]=useState('');
   const [searchValue,setSearchValue]=useState('');
+  
   const inputHandle=(e)=>{
     setState({
       ...state,

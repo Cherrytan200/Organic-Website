@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
-import { BsArrowDownSquare } from "react-icons/bs";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaEdit, FaImage, FaTrash } from "react-icons/fa";
 import Pagination from './../Pagination.jsx';
 import {IoMdCloseCircle} from 'react-icons/io'
 import { overrideStyle } from "../../utils/utils.js";
 import { PropagateLoader } from "react-spinners";
-import { categoryAdd,messageClear,get_category } from "../../store/Reducers/categoryReducer.js";
+import { categoryAdd,messageClear,get_category,updateCategory,deleteCategory } from "../../store/Reducers/categoryReducer.js";
 import { useDispatch, useSelector } from "react-redux";
 import toast from 'react-hot-toast'
 import Search from "../components/Search.jsx";
@@ -21,6 +20,9 @@ export default function Category() {
     const [show,setShow]=useState(false);
     const [perPage,setPerPage]=useState(5);
     const [imageShow,setImage]=useState('');
+    const [isEdit, setIsEdit] = useState(false)
+    const [editId, setEditId] = useState(null)
+
 
     const [state,setState]=useState({
         name:'',
@@ -37,12 +39,19 @@ export default function Category() {
             })
         }
     }
-    const add_category=(e)=>{
-        e.preventDefault();
-        // console.log(state);
-        dispatch(categoryAdd(state))
+
+    const addOrUpdateCategory = (e) => {
+        e.preventDefault()
+        if (isEdit) {
+            dispatch(updateCategory({ id:editId, ...state }))
+        }else{
+            dispatch(categoryAdd(state))
+        }
+        
+        // console.log(state)
     }
 
+    
 
 
     useEffect(()=>{
@@ -70,6 +79,8 @@ export default function Category() {
                 image:''
             })
             setImage('');
+            setIsEdit(false)
+            setEditId(null)
            
         }
     },[successMessage,errorMessage])
@@ -84,16 +95,37 @@ export default function Category() {
         dispatch(get_category(obj))
     },[searchValue,currentPage,perPage])
 
+
+    const handleEdit = (category) => {
+        setState({
+            name: category.name,
+            image: category.image
+        })
+        setImage(category.image)
+        setEditId(category._id)
+        setIsEdit(true)
+        setShow(true)
+    }
+
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure to delete category?')) {
+            console.log("delete category id",id);
+            dispatch(deleteCategory(id));
+        }
+    }
+
   return (
     <div className='px-2 lg:px-7 pt-5'>
     <div className="flex lg:hidden justify-between items-center mb-5 p-4 bg-[#6a5fdf] rounded-md">
         <h1 className="text-[#d0d2d6] font-semibold text-lg ">Category</h1>
         <button onClick={()=>setShow(true)} className="bg-red-500 shadow-lg hover:shadow-red-500/40 px-4 py-2 cursor-pointer text-white rounded-sm text-sm">Add</button>
     </div>
+
         <div className='flex flex-wrap w-full '>
             <div className='w-full lg:w-7/12'>
                 <div className="w-full p-4 bg-[#6a5fdf] rounded-md">
                     <Search setPerPage={setPerPage} setSearchValue={setSearchValue} searchValue={searchValue}/>
+
                     <div className="relative overflow-x-auto">
                         <table className="w-full text-sm text-left text-[#d0d2d6] uppercase border-b border-slate-700">
                         <thead className="etxt-sm text-[#d0d2d6] uppercase border-b border-slate-700">
@@ -107,6 +139,7 @@ export default function Category() {
                             </tr>
                         </thead>
                         <tbody>
+
                             {
                             categories.map((d,i)=> 
                             <tr key={i} className='border-b border-slate-700'>
@@ -122,8 +155,8 @@ export default function Category() {
                                 
                                 <td scope="row" className="py-1 px-4 font-medium whitespace-nowrap">
                                     <div className="flex justify-start items-center gap-4">
-                                        <Link className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50"><FaEdit/></Link>
-                                        <Link className="p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50"><FaTrash/></Link>
+                                        <Link onClick={() => handleEdit(d)} className="p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50"><FaEdit/></Link>
+                                        <Link onClick={() => handleDelete(d._id)} className="p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50"><FaTrash/></Link>
                                     </div>
                                 </td>
                             </tr>
@@ -154,7 +187,7 @@ export default function Category() {
                                 <IoMdCloseCircle/>
                             </div>
                         </div>
-                        <form onSubmit={add_category}>
+                        <form onSubmit={addOrUpdateCategory}>
                             <div className="flex flex-col w-full gap-1 mb-3">
                                 <label htmlFor="name">
                                     category Name
@@ -175,7 +208,7 @@ export default function Category() {
                                 <div className="mt-4">
                                     <button disabled={loader?true:false} className='bg-red-800 w-full hover:shadow-red-300/50 hover:shadow-lg text-white rounded-md px-7 py-2 mb-3'>
                                         {
-                                            loader?<PropagateLoader cssOverride={overrideStyle} color='#fff'/>:'Add Category'
+                                            loader ? <PropagateLoader color='#fff' cssOverride={overrideStyle} /> : isEdit ? 'Update Category' : 'Add Category'
                                         }
                                     </button>
                                 </div>

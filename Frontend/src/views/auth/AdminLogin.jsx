@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { admin_login,messageClear } from '../../store/Reducers/authReducer';
+import { admin_login,messageClear } from '../../store/Reducers/authReducer.js';
 import {PropagateLoader} from 'react-spinners';
 import { toast } from 'react-hot-toast';
 import {useNavigate} from 'react-router-dom';

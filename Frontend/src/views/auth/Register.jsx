@@ -5,8 +5,8 @@ import { FaFacebook } from 'react-icons/fa'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { PropagateLoader } from 'react-spinners';
-import { overrideStyle } from '../../utils/utils';
-import { messageClear, seller_register } from '../../store/Reducers/authReducer';
+import { overrideStyle } from '../../utils/utils.js';
+import { messageClear, seller_register } from '../../store/Reducers/authReducer.js';
 import toast from 'react-hot-toast';
 
 

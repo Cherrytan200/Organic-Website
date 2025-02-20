@@ -92,7 +92,6 @@ export const productReducer=createSlice({
         successMessage:'',
         errorMessage:'',
         loader:false,
-        userInfo:'',
         products:[],
         product:'',
         totalProduct:0
@@ -100,6 +99,7 @@ export const productReducer=createSlice({
     reducers:{
         messageClear:(state)=>{
             state.errorMessage='';
+            state.successMessage='';
         }
     },
     extraReducers:(builder)=>{

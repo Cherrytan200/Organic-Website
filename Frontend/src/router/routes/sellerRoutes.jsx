@@ -1,5 +1,5 @@
-import Deactive from "../../views/Deactive.jsx";
-import Pending from "../../views/Pending.jsx";
+import Deactive from "./../../views/Deactive.jsx";
+import Pending from "./../../views/Pending.jsx";
 import AddProduct from "../../views/seller/AddProduct.jsx";
 import Discount from "../../views/seller/Discount.jsx";
 import EditProduct from "../../views/seller/EditProduct.jsx";
@@ -10,7 +10,10 @@ import Products from "../../views/seller/Products.jsx";
 import Profile from "../../views/seller/Profile.jsx";
 import SellerDashboard from "../../views/seller/SellerDashboard.jsx";
 import SellerToCustomer from "../../views/seller/SellerToCustomer.jsx";
-import SellerToAdmin from "./SellerToAdmin.jsx";
+import SellerToAdmin from "../../views/seller/SellerToAdmin.jsx";
+import AddBanner from '../../views/seller/AddBanner.jsx';
+
+
 export const sellerRoutes=[
     
     {
@@ -62,7 +65,7 @@ export const sellerRoutes=[
         visibility:['active','deactive'],
     },
     {
-        path:'/seller/dashboard/orders/details/:orderId',
+        path:'/seller/dashboard/order/details/:orderId',
         element:<OrderDetails/>,
         role:'seller',
         visibility:['active','deactive'],
@@ -97,5 +100,11 @@ export const sellerRoutes=[
         role:'seller',
         visibility:['active','deactive','pending']
     },
+    {
+        path:'/seller/dashboard/add-banner/:productId',
+        element:<AddBanner/>,
+        role:'seller',
+        status:'active'
+    }
     
 ]
