@@ -1,55 +1,86 @@
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import PropTypes from 'prop-types';
+export default function Pagination({ pageNumber, setPageNumber, totalItem, perPage, showItem }) {
+  let totalPage = Math.ceil(totalItem / perPage);
+  let startPage = Math.max(1, pageNumber - Math.floor(showItem / 2));
+  let endPage = Math.min(totalPage, startPage + showItem - 1);
 
-export default function Pagination({pageNumber,setPageNumber,totalItem,perPage,showItem}) {
-  let totalPage=Math.ceil(totalItem/perPage)
-  let startPage=pageNumber
-
-  let dif=totalPage-pageNumber
-  if(dif<=showItem){
-    startPage=totalPage-showItem
-  }
-  
-  Pagination.propTypes = {
-    pageNumber: PropTypes.number.isRequired,
-    setPageNumber: PropTypes.func.isRequired,
-    totalItem: PropTypes.number.isRequired,
-    perPage: PropTypes.number.isRequired,
-    showItem: PropTypes.number.isRequired,
-  };
-  
-  let endPage=startPage<0?showItem:showItem+startPage;
-
-  if(startPage<=0){
-    startPage=1
+  if (endPage - startPage + 1 < showItem) {
+      startPage = Math.max(1, endPage - showItem + 1);
   }
 
-  const createBtn=()=>{
-    const btns=[]
-    for(let i=startPage;i<endPage;i++){
-        btns.push(
-            <li key={i} onClick={()=>setPageNumber(i)} className={`${pageNumber===i ? 'bg-indigo-300 shadow-lg shadow-indigo-300/50 text-white':'bg-slate-600 hover:bg-indigo-400 shadow-lg hover:shadow-indigo-500/50 hover:text-white text-[#d0d2d6]'} w-[33px] h-[33px] rounded-full flex justify-center items-center cursor-pointer `}>
-                {i}
-            </li>
-        )
-    }
-    return btns;
+  const createPaginationArray = () => {
+      const pagination = [];
+      for (let i = startPage; i <= endPage; i++) {
+          pagination.push(i);
+      }
+      return pagination;
   }
-  return(
-    <ul className="flex gap-3 ">
-        {
-            pageNumber>1 && <li onClick={()=>setPageNumber(pageNumber-1)} className="w-[33px] h-[33px] rounded-full flex justify-center items-center bg-slate-300 text-[#0a0a0b] cursor-pointer">
-                <MdOutlineKeyboardDoubleArrowLeft/>
-            </li>
-        }
-        {
-            createBtn()
-        }
-        {
-            pageNumber<totalPage && <li onClick={()=>setPageNumber(pageNumber+1)} className="w-[33px] h-[33px] rounded-full flex justify-center items-center bg-slate-300 text-[#0a0a0b] cursor-pointer">
-                <MdOutlineKeyboardDoubleArrowRight/>
-            </li>
-        }
-    </ul>
-  )
+
+  return (
+      <div className="flex items-center gap-2">
+          {/* First Page */}
+          {pageNumber > 1 && (
+              <button 
+                  onClick={() => setPageNumber(1)}
+                  className="w-9 h-9 rounded-lg flex justify-center items-center bg-white text-gray-600 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-300 shadow-sm"
+              >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                  </svg>
+              </button>
+          )}
+
+          {/* Previous */}
+          {pageNumber > 1 && (
+              <button 
+                  onClick={() => setPageNumber(pageNumber - 1)}
+                  className="w-9 h-9 rounded-lg flex justify-center items-center bg-white text-gray-600 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-300 shadow-sm"
+              >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+              </button>
+          )}
+
+          {/* Page Numbers */}
+          <div className="flex items-center gap-1">
+              {createPaginationArray().map((p, i) => (
+                  <button
+                      key={i}
+                      onClick={() => setPageNumber(p)}
+                      className={`w-9 h-9 rounded-lg flex justify-center items-center transition-all duration-300 shadow-sm ${
+                          pageNumber === p 
+                              ? 'bg-gradient-to-r from-green-400 to-blue-500 text-white shadow-md' 
+                              : 'bg-white text-gray-600 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white'
+                      }`}
+                  >
+                      {p}
+                  </button>
+              ))}
+          </div>
+
+          {/* Next */}
+          {pageNumber < totalPage && (
+              <button 
+                  onClick={() => setPageNumber(pageNumber + 1)}
+                  className="w-9 h-9 rounded-lg flex justify-center items-center bg-white text-gray-600 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-300 shadow-sm"
+              >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+              </button>
+          )}
+
+          {/* Last Page */}
+          {pageNumber < totalPage && (
+              <button 
+                  onClick={() => setPageNumber(totalPage)}
+                  className="w-9 h-9 rounded-lg flex justify-center items-center bg-white text-gray-600 hover:bg-gradient-to-r hover:from-green-400 hover:to-blue-500 hover:text-white transition-all duration-300 shadow-sm"
+              >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                  </svg>
+              </button>
+          )}
+      </div>
+  );
 }

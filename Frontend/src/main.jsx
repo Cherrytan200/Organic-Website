@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')).render(
             position:'top-right',
             style:{
               backgroud:'#283046',
-              color:'white'
+              color:'black'
             }
           }}
         />

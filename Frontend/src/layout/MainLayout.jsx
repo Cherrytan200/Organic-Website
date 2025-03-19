@@ -31,7 +31,7 @@ export default function MainLayout (){
     const [showSidebar, setShowSidebar] = useState(false)
 
     return ( 
-        <div className='bg-[#cdcae9] w-full min-h-screen'>
+        <div className='bg-[#dee9e3] w-full min-h-screen'>
             <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
             <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
 

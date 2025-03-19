@@ -18,6 +18,7 @@ const Shops = () => {
 
     const dispatch = useDispatch()
     const {products,categories,priceRange,latest_product,totalProduct,perPage} = useSelector(state => state.home)
+    console.log("categories",categories);
 
     useEffect(() => { 
         dispatch(price_range_product())
@@ -106,6 +107,7 @@ const Shops = () => {
                     <h2 className='text-3xl font-bold mb-3 text-slate-600'>Category </h2>
         <div className='py-2'>
             {
+                
                 categories.map((c,i) => <div key={i} className='flex justify-start items-center gap-2 py-1'>
                     <input checked={category === c.name ? true : false} onChange={(e)=>queryCategory(e,c.name)} type="checkbox" id={c.name} />
                     <label className='text-slate-600 block cursor-pointer' htmlFor={c.name}>{c.name}</label>
@@ -122,11 +124,15 @@ const Shops = () => {
                 max={priceRange.high}
                 values={(state.values)}
                 onChange={(values) => setState({values})}
-                renderTrack={({props,children}) => (
-                    <div key={props.key} {...props} className='w-full h-[6px] bg-slate-200 rounded-full cursor-pointer'>
-                        {children}
-                    </div>
-                )}
+                renderTrack={({props, children}) => {
+                    const { key, ...restProps } = props; // Extract `key` from props
+                    return (
+                        <div key={key} {...restProps} className='w-full h-[6px] bg-slate-200 rounded-full cursor-pointer'>
+                            {children}
+                        </div>
+                    );
+                }}
+
                 renderThumb={({ props }) => (
                     <div className='w-[15px] h-[15px] bg-[#059473] rounded-full' {...props} />
                 )} 

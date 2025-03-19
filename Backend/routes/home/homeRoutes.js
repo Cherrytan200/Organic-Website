@@ -1,4 +1,3 @@
- 
 import { get_products,get_categories,price_range_product,query_products,submit_review,get_reviews,product_details } from '../../Controllers/home/homeController.js';
 import express from 'express';
 const router=express.Router();

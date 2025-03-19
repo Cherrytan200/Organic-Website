@@ -1,107 +1,99 @@
-import {MdEmail} from 'react-icons/md'
-import {IoIosArrowDown, IoMdArrowDropdown, IoMdPhonePortrait} from 'react-icons/io'
+import { MdEmail } from 'react-icons/md';
+import { IoIosArrowDown, IoMdArrowDropdown, IoMdPhonePortrait } from 'react-icons/io';
 import { FaFacebook, FaGithub, FaHeart, FaInstagram, FaLinkedin, FaList, FaLock, FaPhoneAlt, FaTwitter, FaUser } from 'react-icons/fa';
-import {Link, useLocation,useNavigate} from 'react-router-dom'
-import { useState,useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { FaCartShopping } from 'react-icons/fa6';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_card_products, get_wishlist_products } from '../store/reducers/cardReducer.js';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { categories } = useSelector((state) => state.home);
+  const { userInfo } = useSelector((state) => state.auth);
+  const { card_product_count, wishlist_count } = useSelector((state) => state.card);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const {categories} = useSelector(state => state.home) 
-    const {userInfo} = useSelector(state => state.auth) 
-    const {card_product_count,wishlist_count} = useSelector(state => state.card)
+  const { pathname } = useLocation();
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [categoryShow, setCategoryShow] = useState(true);
 
-    const {pathname}=useLocation();
-    const [showSidebar, setShowSidebar] = useState(true);
-    const [categoryShow, setCategoryShow] = useState(true);
+  const [searchValue, setSearchValue] = useState('');
+  const [category, setCategory] = useState('');
 
-    const [searchValue,setSearchValue]=useState('');
-    const [category,setCategory]=useState('');
-    
-    const search = () => {
-        navigate(`/products/search?category=${category}&&value=${searchValue}`)
+  const search = () => {
+    navigate(`/products/search?category=${category}&&value=${searchValue}`);
+  };
+
+  const redirect_card_page = () => {
+    if (userInfo) {
+      navigate('/card');
+    } else {
+      navigate('/login');
     }
+  };
 
-    const redirect_card_page = () => {
-        if (userInfo) {
-            navigate('/card')
-        } else {
-            navigate('/login')
-        }
-    } 
-
-    useEffect(() => {
-        if (userInfo) {
-            dispatch(get_card_products(userInfo.id))
-            dispatch(get_wishlist_products(userInfo.id))
-        }  
-    },[userInfo])
-
+  useEffect(() => {
+    if (userInfo) {
+      dispatch(get_card_products(userInfo.id));
+      dispatch(get_wishlist_products(userInfo.id));
+    }
+  }, [dispatch, userInfo]);
 
   return (
-    <div className="w-full bg-white ">
-        <div className="header-top bg-[#caddff] md-lg:hidden">
-            <div className="w-[85%] lg:w-[90%] mx-auto">
-                <div className="flex w-full justify-between items-center h-[50px] text-slate-500">
-                    <ul className="flex justify-start items-center gap-8 font-semibold text-black">
-                        <li className="flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]">
-                            <span>
-                                <MdEmail/>
-                                
-                            </span>
-                            <span>
-                                support@gmail.com
-                            </span>
-                        </li>
-                        <li className="flex relative justify-center items-center gap-2 text-sm ">
-                            <span>
-                                <IoMdPhonePortrait/>
-                                
-                            </span>
-                            <span>
-                               123456789
-                            </span>
-                        </li>
-                    </ul>
-                    <div>
-                        <div className='flex justify-center items-center gap-10'>
-                            <div className='flex justify-center items-center gap-4 text-black'>
-                                <a href='#'><FaFacebook/></a>
-                                <a href='#'><FaTwitter/></a>
-                                <a href='#'><FaInstagram/></a>
-                                <a href='#'><FaLinkedin/></a>
-                                <a href='#'><FaGithub/></a>
-                            </div>
-                            <div className='flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]'>
-                                <img src='/Images/flag.webp' alt='Lan' className='h-10px w-10'/>
-                                <span><IoMdArrowDropdown/></span>
-                                <ul className='absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10 '>
-                                    <li>English</li>
-                                    <li>Telugu</li>
-                                    <li>Hindi</li>
-                                </ul>
-                            </div>
-                            {
-                                userInfo?<Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/dashboard'>
-                                    <span><FaUser/></span>
-                                    <span>{userInfo.name}</span>
-                                </Link>:
-                                <Link className="flex cursor-pointer justify-center items-center gap-2 text-sm text-black" to='/login'>
-                                    <span><FaLock/></span>
-                                    <span>Login</span>
-                                </Link>  
-                            }
-                        </div>
-                    </div>
+    <div className='w-full bg-white'>
+      {/* Header content */}
+      <div className='header-top bg-[#caddff] md-lg:hidden'>
+        <div className='w-[85%] lg:w-[90%] mx-auto'>
+          <div className='flex w-full justify-between items-center h-[50px] text-slate-500'>
+            <ul className='flex justify-start items-center gap-8 font-semibold text-black'>
+              <li className='flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]'>
+                <span>
+                  <MdEmail />
+                </span>
+                <span>support@gmail.com</span>
+              </li>
+              <li className='flex relative justify-center items-center gap-2 text-sm'>
+                <span>
+                  <IoMdPhonePortrait />
+                </span>
+                <span>123456789</span>
+              </li>
+            </ul>
+            <div>
+              <div className='flex justify-center items-center gap-10'>
+                <div className='flex justify-center items-center gap-4 text-black'>
+                  <a href='#'><FaFacebook /></a>
+                  <a href='#'><FaTwitter /></a>
+                  <a href='#'><FaInstagram /></a>
+                  <a href='#'><FaLinkedin /></a>
+                  <a href='#'><FaGithub /></a>
                 </div>
+                <div className='flex group cursor-pointer text-slate-800 text-sm justify-center items-center gap-1 relative after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px] after:absolute before:absolute before:h-[18px] before:bg-[#afafaf] before:w-[1px] before:-left-[20px]'>
+                  <img src='/Images/flag.webp' alt='Lan' className='h-10px w-10' />
+                  <span><IoMdArrowDropdown /></span>
+                  <ul className='absolute invisible transition-all top-12 rounded-sm duration-200 text-white p-2 w-[100px] flex flex-col gap-3 group-hover:visible group-hover:top-6 group-hover:bg-black z-10'>
+                    <li>English</li>
+                    <li>Telugu</li>
+                    <li>Hindi</li>
+                  </ul>
+                </div>
+                {userInfo ? (
+                  <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/dashboard'>
+                    <span><FaUser /></span>
+                    <span>{userInfo.name}</span>
+                  </Link>
+                ) : (
+                  <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm text-black' to='/login'>
+                    <span><FaLock /></span>
+                    <span>Login</span>
+                  </Link>
+                )}
+              </div>
             </div>
+          </div>
         </div>
-
-
+      </div>
         <div className='w-white'>
             <div className='w-[85%] lg:w-[90%] mx-auto'>
                 <div className='h-[80px] md-lg:h-[100px] flex justify-between items-center flex-wrap'>
