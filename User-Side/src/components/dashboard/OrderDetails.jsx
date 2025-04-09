@@ -49,13 +49,13 @@ export default function OrderDetails(){
        <img className='w-[55px] h-[55px]' src={p.images[0]} alt="" />
        <div className='flex text-sm flex-col justify-start items-start'>
                 <Link> {p.name} </Link>
-                <p> <span>Brand : BrandOrderDetails52</span> </p>
+                <p> <span>Shop name: {p.shopName}</span> </p>
                 <p><span>Quantity : {p.quantity}</span></p>
        </div>
             </div>
         
         <div className='pl-4 flex flex-col'>
-                <h2 className='text-md text-green-800'>${p.price - Math.floor((p.price * p.discount) / 100)}</h2>
+                <h2 className='text-md text-green-800'>&#8377;{p.price - Math.floor((p.price * p.discount) / 100)}</h2>
                 <p className='line-through'>{p.price}</p>
                 <p>-{p.discount}%</p>
         </div>

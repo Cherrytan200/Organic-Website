@@ -10,7 +10,7 @@ import { get_card_products, get_wishlist_products } from '../store/reducers/card
 export default function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { categories } = useSelector((state) => state.home);
+  const { categories } = useSelector((state ) => state.home);
   const { userInfo } = useSelector((state) => state.auth);
   const { card_product_count, wishlist_count } = useSelector((state) => state.card);
 
@@ -114,7 +114,7 @@ export default function Header() {
                         <div className='flex justify-between md-lg:justify-center items-center flex-wrap pl-8'>
                             <ul className='flex justify-start items-start gap-8 text-sm font-bold uppercase md-lg:hidden'>
                                 <li>
-                                    <Link className={`p-2 block ${pathname==='/' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/' className={`p-2 block ${pathname==='/' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Home
                                     </Link>
                                 </li>
@@ -124,17 +124,17 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`p-2 block ${pathname==='/blog' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/blog' className={`p-2 block ${pathname==='/blog' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Blog
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`p-2 block ${pathname==='/about' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/about' className={`p-2 block ${pathname==='/about' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         About us
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`p-2 block ${pathname==='/contact' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/contact' className={`p-2 block ${pathname==='/contact' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Contact
                                     </Link>
                                 </li>
@@ -207,7 +207,7 @@ export default function Header() {
                         
                         <ul className='flex  flex-col justify-start items-start gap-3 text-sm font-bold uppercase '>
                                 <li>
-                                    <Link className={`py-2 block ${pathname==='/' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/' className={`py-2 block ${pathname==='/' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Home
                                     </Link>
                                 </li>
@@ -217,17 +217,17 @@ export default function Header() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`py-2 block ${pathname==='/blog' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/blog' className={`py-2 block ${pathname==='/blog' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Blog
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`py-2 block ${pathname==='/about' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/about' className={`py-2 block ${pathname==='/about' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         About us
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className={`py-2 block ${pathname==='/contact' ?'text-[#059473]' : 'text-slate-600'} `}>
+                                    <Link to='/contact' className={`py-2 block ${pathname==='/contact' ?'text-[#059473]' : 'text-slate-600'} `}>
                                         Contact
                                     </Link>
                                 </li>
