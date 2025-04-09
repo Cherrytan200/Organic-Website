@@ -20,9 +20,9 @@ const Footer = () => {
                     <div className='flex flex-col gap-3'>
                         <img className='w-[190px] h-[70px]' src="/Images/logo.png" alt="logo" />
                         <ul className='flex flex-col gap-2 text-slate-600'>
-                            <li>Address :  2504 Ivins Avenue, Egg Harbor Township, NJ 08234,</li>
-                            <li>Phone : 4343434344</li>
-                            <li>Email : support@easylearingbd.com</li>
+                            <li>Address : Near Pullaiah College of Engineering and Technology, Venkayapalli, Kurnool, 518002</li>
+                            <li>Phone : +91 9182736450</li>
+                            <li>Email : support@organicstore.com</li>
                         </ul> 
                     </div> 
                 </div>
@@ -76,7 +76,7 @@ const Footer = () => {
             <div className='w-4/12 lg:w-full lg:mt-6'>
                 <div className='w-full flex flex-col justify-start gap-5'>
                     <h2 className='font-bold text-lg mb-2'>Join Our Shop</h2>
-                    <span>Get Email updates about tour latest and shop specials offers</span>
+                    <span>Get Email updates about our latest and  specials offers product details</span>
                     <div className='h-[50px] w-full bg-white border relative'>
                         <input className='h-full bg-transparent w-full px-3 outline-0' type="text" placeholder='Enter Your Email' />
                         <button className='h-full absolute right-0 bg-[#059473] text-white uppercase px-4 font-bold text-sm'>Subscribe</button>  

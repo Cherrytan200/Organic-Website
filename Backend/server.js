@@ -26,7 +26,7 @@ import { dbConnect } from "./utils/db.js";
 
 // Middleware
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    origin: "*",
     credentials: true
 }));
 

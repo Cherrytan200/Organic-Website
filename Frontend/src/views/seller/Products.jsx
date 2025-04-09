@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 import { LuImageMinus } from "react-icons/lu"
 import Pagination from '../Pagination'
@@ -93,7 +93,7 @@ const Products = () => {
                         <LuImageMinus />
                       </Link>
                       <button 
-                        onClick={() => navigate(`/product/details/${d._id}`)}
+                        onClick={() => Navigate(`/product/details/${d._id}`)}
                         className="p-2 bg-green-500 rounded-full hover:shadow-lg hover:shadow-green-500/50 text-white transition-all"
                       >
                         <FaEye/>
